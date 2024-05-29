@@ -1,2 +1,2 @@
-# FPLembagaBimBel
-Dokumentasi asset-asset pembuatan proyek aplikasi lembagai bimbingan belajar sebagai final praktikum Kelas PWeb A oleh Mikha, Naufal, Alvin
+# Hospital Integrated Management System
+Sistem manajemen database yang terintegrasi oleh seluruh rumah sakit.
