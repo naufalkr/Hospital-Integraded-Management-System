@@ -18,9 +18,7 @@
             <img src="Images/logo.jpg" alt="Logo Perusahaan" class="logo">
             <h1>Aktual Cendekia Course</h1>
             <p>Mulai perjalanan belajar Anda bersama kami. Pilih opsi untuk memulai:</p>
-            <a href="login.php">Masuk sebagai Dokter</a>
-            <a href="login1.php">Masuk sebagai Admin</a>
-            <a href="login2.php">Masuk sebagai Pasien</a>
+            <a href="login.php">Masuk</a>
             <a href="signup.php">Daftar</a>
             <?php
                 check_signup_errors();

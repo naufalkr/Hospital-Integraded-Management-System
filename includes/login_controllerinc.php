@@ -2,15 +2,15 @@
 
 declare(strict_types= 1);
 
-function is_input_empty(string $username,string $password,string $role){
-    if(empty($username) || empty($password) || empty($role)){
+function is_input_empty(string $NIK,string $password,string $role){
+    if(empty($NIK) || empty($password) || empty($role)){
         return true;
     } else{
         return false;
     }
 }
 
-function is_username_invalid(bool|array $result){
+function is_NIK_invalid(bool|array $result){
     if(!$result){
         return true;
     } else{

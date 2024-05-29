@@ -38,7 +38,7 @@
                 <li><a class="nav-link scrollto" href="#jadwal">Jadwal</a></li>
                 <li><a class="nav-link scrollto" href="#pesan">Pesan</a></li>
                 <li><a class="nav-link scrollto" href="siswaterdaftar.php">Siswa Terdaftar</a></li>
-                <?php output_username()?>
+                <?php output_NIK()?>
                 
             </ul>
         </nav>

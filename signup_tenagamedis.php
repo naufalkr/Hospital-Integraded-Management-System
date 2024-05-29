@@ -25,14 +25,13 @@ require_once 'includes/signup_viewinc.php';
                 <h1 class="signup">Sign-Up</h1>
 
                 <form action="includes/signupinc.php" method="post">
-                    <input type="text" name="NIK" placeholder="NIK" required>
+                    <input type="text" name="tenagamedis_id" placeholder="ID" required>
                     <input type="password" name="password" placeholder="Password" required>
                     <input type="text" name="email" placeholder="E-mail" required>
-                    <input type="text" name="nama_pasien" placeholder="Nama" required>
-                    <input type="text" name="alamat" placeholder="Alamat" required>
-                    <input type="text" name="no_telepon_pasien" placeholder="Nomor Telepon" required>
+                    <input type="text" name="nama_tenagamedis" placeholder="Nama" required>
+                    <input type="text" name="spesialisasi" placeholder="Spesialisasi" required>
                     <input type="text" name="jenis_kelamin" placeholder="Jenis Kelamin" required>
-
+                    <input type="text" name="no_telepon_tenagamedis" placeholder="Nomor Telepon" required>
                     <button>Sign-up</button>
                 </form>
 

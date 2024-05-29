@@ -76,14 +76,14 @@
 
         if (count($users) > 0) {
             echo "<table>";
-            echo "<tr><th>ID</th><th>Username</th><th>Email</th></tr>";
+            echo "<tr><th>ID</th><th>NIK</th><th>Email</th></tr>";
             foreach ($users as $user) {
                 if($user['usertype'] == 'guru'){
                     continue;
                 }
                 echo "<tr>";
                 echo "<td>{$user['id']}</td>";
-                echo "<td>{$user['username']}</td>";
+                echo "<td>{$user['NIK']}</td>";
                 echo "<td>{$user['email']}</td>";
                 echo "</tr>";
             }

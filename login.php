@@ -29,14 +29,17 @@
                 <?php } ?>
 
                 <form method="POST" action="includes/logininc.php">
-                    <label for="username">Username:</label>
-                    <input type="text" name="username" id="username" required>
+                    <label for="NIK">NIK:</label>
+                    <input type="text" name="NIK" id="NIK" required>
 
                     <label for="password">Password:</label>
                     <input type="password" name="password" id="password" required>
 
                     <label for="role">Masuk Sebagai:</label>
-                    <input type="text" name="role" id="text" required>
+                    <select name="role" id="role" required>
+                        <option value="tenaga_medis">Tenaga Medis</option>
+                        <option value="pasien">Pasien</option>
+                    </select>
 
 
                     <input type="submit" value="Login">

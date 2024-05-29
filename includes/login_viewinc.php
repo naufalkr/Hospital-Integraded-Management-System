@@ -3,9 +3,9 @@
 declare(strict_types= 1);
 
 
-function output_username(){
+function output_NIK(){
     if(isset($_SESSION["user_id"])){
-        echo '<li><a class="nav-link scrollto" href="siswaterdaftar.php">Logged in as '. $_SESSION["user_username"] . '</a></li>'  ;
+        echo '<li><a class="nav-link scrollto" href="siswaterdaftar.php">Logged in as '. $_SESSION["user_NIK"] . '</a></li>'  ;
         echo '<li><form action="includes/logoutinc.php" ><button class="getstarted scrollto">Logout</button></form></li>';
     } else{
         echo '<li><a class="nav-link scrollto" href="siswaterdaftar.php">Not logged in</a></li>';
