@@ -4,7 +4,7 @@ declare(strict_types= 1);
 
 
 function output_NIK(){
-    if(isset($_SESSION["user_id"])){
+    if(isset($_SESSION["user_NIK"])){
         echo '<li><a class="nav-link scrollto" href="siswaterdaftar.php">Logged in as '. $_SESSION["user_NIK"] . '</a></li>'  ;
         echo '<li><form action="includes/logoutinc.php" ><button class="getstarted scrollto">Logout</button></form></li>';
     } else{
@@ -12,6 +12,7 @@ function output_NIK(){
         echo '<li><a class="getstarted scrollto" href="index.php">Login</a></li>';
     }
 }
+
 function check_login_errors(){
     if(isset($_SESSION["errors_login"])){
         $errors = $_SESSION['errors_login'];
