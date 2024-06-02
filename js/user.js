@@ -75,3 +75,18 @@ document.getElementById("open-modal-btn").addEventListener("click", () => {
 document.getElementById("close-modal-btn").addEventListener("click", () => {
   document.getElementById("modal-wrapper").classList.add("hidden");
 });
+
+// // Add event listeners to each button
+// const popupButtons = document.querySelectorAll(".icon-button");
+// popupButtons.forEach(button => {
+//   button.addEventListener("click", () => {
+//     const card = button.closest(".card");
+//     const report = {
+//       tanggal_riwayat: card.querySelector(".date").textContent,
+//       nama_tenagamedis: card.querySelector(".dr_name").textContent,
+//       nama_rumahsakit: card.querySelector(".place").textContent
+//     };
+//     populatePopupDetails(report);
+//     document.getElementById("modal-wrapper").classList.remove("hidden");
+//   });
+// });

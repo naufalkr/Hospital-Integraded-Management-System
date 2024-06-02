@@ -14,6 +14,13 @@
     if (!$user) {
         die("User not found.");
     }
+
+    // Fetch medical reports based on NIK
+    $query = $pdo->prepare("SELECT * FROM riwayat WHERE NIK = :nik");
+    $query->execute(['nik' => $nik]);
+    $reports = $query->fetchAll(PDO::FETCH_ASSOC);
+
+
 ?>
 
 
@@ -96,11 +103,8 @@
           />
           <div>
             <!-- Nama Umur -->
-            <h2 class="text-2xl font-semibold text-cyan-950"></h2>
-            <p class="text-gray-500">NAME:</p>
-            <span class="text-gray-500"><?php echo htmlspecialchars($user['nama_pasien']); ?></span>
-            <p class="text-gray-500">AGE:</p>
-            <span class="text-gray-500"><?php echo htmlspecialchars($user['Usia']); ?></span>
+            <h2 class="text-2xl font-semibold text-cyan-950"><?php echo htmlspecialchars($user['nama_pasien']); ?></h2>
+            <p class="text-gray-500">AGE: <?php echo htmlspecialchars($user['Usia']); ?></p>
           </div>
         </div>
         <!-- Informasi lain -->
@@ -171,68 +175,51 @@
           </div>
           <!-- Medical reports -->
           <div id="medical-reports-content" class="tab-content active">
-            <div class="card-container">
-              <div class="card">
-                <div class="card-minimized">
-                  <div class="card-info">
-                    <p class="date">2 Januari 2024</p>
-                    <p class="title">Check Up</p>
+              <?php foreach ($reports as $report) : ?>
+                  <div class="card-container">
+                      <div class="card">
+                          <div class="card-minimized">
+                              <div class="card-info">
+                                  <p class="date"><?php echo date('j F Y', strtotime($report['tanggal_riwayat'])); ?></p>
+                                  <p class="title"><?php echo $report['jenis_layanan']; ?></p>
+                              </div>
+                              <div class="card-attribute">
+                                  <div class="pj-info">
+                                      <?php
+                                      // Fetch rumah sakit information
+                                      $query = $pdo->prepare("SELECT * FROM Rumah_Sakit WHERE rumahsakit_id = :id");
+                                      $query->execute(['id' => $report['rumahsakit_id']]);
+                                      $rs_info = $query->fetch(PDO::FETCH_ASSOC);
+                                      ?>
+                                      <p class="place"><?php echo $rs_info['nama_rumahsakit']; ?></p>
+                                      <?php
+                                      // Fetch tenaga medis information
+                                      $query = $pdo->prepare("SELECT * FROM tenaga_medis WHERE tenagamedis_id = :id");
+                                      $query->execute(['id' => $report['tenagamedis_id']]);
+                                      $tm_info = $query->fetch(PDO::FETCH_ASSOC);
+                                      ?>
+                                      <p class="dr_name"><?php echo $tm_info['nama_tenagamedis']; ?></p>
+                                  </div>
+                                  <span class="status">Berhasil</span>
+                                  <button class="icon-button" id="open-modal-btn">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 512 512"
+                                    class="icon"
+                                  >
+                                    <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                    <path
+                                      fill="#083344"
+                                      d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"
+                                    />
+                                  </svg>
+                                </button>
+                                
+                              </div>
+                          </div>
+                      </div>
                   </div>
-                  <div class="card-attribute">
-                    <div class="pj-info">
-                      <p class="place">Rumah Sakit Harapan Kita</p>
-                      <p class="dr_name">Dr. Salim</p>
-                    </div>
-                    <span class="status">Berhasil</span>
-                    <button class="icon-button" id="open-modal-btn">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512"
-                        class="icon"
-                      >
-                        <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                        <path
-                          fill="#083344"
-                          d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card-container">
-              <div class="card">
-                <div class="card-minimized">
-                  <div class="card-info">
-                    <p class="date">2 Januari 2024</p>
-                    <p class="title">Check Up</p>
-                  </div>
-                  <div class="card-attribute">
-                    <div class="pj-info">
-                      <p class="place">Rumah Sakit Harapan Kita</p>
-                      <p class="dr_name">Dr. Salim</p>
-                    </div>
-                    <span class="status">Berhasil</span>
-                    <button class="icon-button" id="open-modal-btn">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512"
-                        class="icon"
-                      >
-                        <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                        <path
-                          fill="#083344"
-                          d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-          </div>
+              <?php endforeach; ?>
           </div>
           <!-- Schedule Ini Biarin ae-->
           <div id="schedule-content" class="tab-content">
@@ -341,6 +328,6 @@
 
 <?php
     // Tutup koneksi
-    $stmt->close();
-    $conn->close();
+    // $stmt->close();
+    // $conn->close();
 ?>
