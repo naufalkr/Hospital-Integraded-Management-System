@@ -3,21 +3,26 @@ include_once 'includes/config_sessioninc.php';
 include_once 'includes/login_viewinc.php';
 include_once 'includes/dbhinc.php'; // Include the database connection file
 
-// Define the NIK to be fetched
-$nik = '1234567890';
+// Define the tenagamedis_id to be fetched
+$tenagamedis_id = '101';
 
-// Fetch user data based on NIK
-$query = $pdo->prepare("SELECT * FROM pasien WHERE NIK = :nik");
-$query->execute(['nik' => $nik]);
-$user = $query->fetch(PDO::FETCH_ASSOC);
+// Fetch user data based on tenagamedis_id
+$query = $pdo->prepare("SELECT * FROM tenaga_medis WHERE tenagamedis_id = :tenagamedis_id");
+$query->execute(['tenagamedis_id' => $tenagamedis_id]);
+$dokter = $query->fetch(PDO::FETCH_ASSOC);
 
-if (!$user) {
+if (!$dokter) {
   die("User not found.");
 }
 
-// Fetch medical reports based on NIK
-$query = $pdo->prepare("SELECT * FROM riwayat WHERE NIK = :nik");
-$query->execute(['nik' => $nik]);
+// // Fetch medical reports based on tenagamedis_id
+// $query = $pdo->prepare("SELECT * FROM Rumah_Sakit WHERE tenagamedis_id = :tenagamedis_id");
+// $query->execute(['tenagamedis_id' => $tenagamedis_id]);
+// $reports = $query->fetchAll(PDO::FETCH_ASSOC);
+
+// Fetch medical reports based on tenagamedis_id
+$query = $pdo->prepare("SELECT * FROM riwayat WHERE tenagamedis_id = :tenagamedis_id");
+$query->execute(['tenagamedis_id' => $tenagamedis_id]);
 $reports = $query->fetchAll(PDO::FETCH_ASSOC);
 
 // // Ambil id dari parameter URL
@@ -81,9 +86,10 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
           />
         </div>
         <div class="dokter-info">
-          <h1 class="text-2xl font-bold">Dr. Rook Rookie, Ph.D</h1>
+          <!-- <h1 class="text-2xl font-bold">Dr. Rook Rookie, Ph.D</h1> -->
+          <span class="text-2xl font-bold"><?php echo htmlspecialchars($dokter['nama_tenagamedis']); ?></span>
           <p class="text-sm">
-            Specialist Orthopedics <span>at</span> Mitra Keluarga Surabaya
+            <?php echo htmlspecialchars($dokter['spesialisasi']); ?> <span>at</span> Mitra Keluarga Surabaya
           </p>
         </div>
       </div>

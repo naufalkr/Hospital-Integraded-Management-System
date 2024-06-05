@@ -76,11 +76,13 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
           User Dashboard
         </p>
       </div>
-      <?php output_NIK()?>
+      <!-- <?php output_NIK()?> -->
       <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-        <button class="flex bg-teal-500 text-white px-4 py-2 rounded-lg font-regular">
-          Log Out
-        </button>
+        <form action="includes/logoutinc.php" >
+          <button class="flex bg-teal-500 text-white px-4 py-2 rounded-lg font-regular">
+            Log Out
+          </button>
+        </form>
       </div>
     </nav>
   </header>
