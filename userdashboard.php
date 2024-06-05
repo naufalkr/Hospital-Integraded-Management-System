@@ -20,6 +20,21 @@ $query = $pdo->prepare("SELECT * FROM riwayat WHERE NIK = :nik");
 $query->execute(['nik' => $nik]);
 $reports = $query->fetchAll(PDO::FETCH_ASSOC);
 
+// // Ambil id dari parameter URL
+// $reportId = $_GET['id'];
+
+// // Query untuk mengambil informasi riwayat dari database berdasarkan id
+// $query = $pdo->prepare("SELECT riwayat.tanggal_riwayat, tenaga_medis.nama_tenagamedis, rumah_sakit.nama_rumahsakit 
+//                         FROM riwayat 
+//                         INNER JOIN tenaga_medis ON riwayat.tenagamedis_id = tenaga_medis.tenagamedis_id 
+//                         INNER JOIN rumah_sakit ON riwayat.rumahsakit_id = rumah_sakit.rumahsakit_id 
+//                         WHERE riwayat.riwayat_id = :id");
+// $query->execute(['id' => $reportId]);
+// $reportInfo = $query->fetch(PDO::FETCH_ASSOC);
+
+// // Kembalikan data dalam format JSON
+// echo json_encode($reportInfo);
+
 
 ?>
 
@@ -32,7 +47,7 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>User Dashboard</title>
   <!-- css -->
-  <link rel="stylesheet" href="css/userstyle.css" />
+  <link rel="stylesheet" href="user/style.css" />
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -62,6 +77,7 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
           User Dashboard
         </p>
       </div>
+      <?php output_NIK()?>
       <div class="hidden lg:flex lg:flex-1 lg:justify-end">
         <button class="flex bg-teal-500 text-white px-4 py-2 rounded-lg font-regular">
           Log Out
@@ -167,19 +183,19 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
                       <p class="dr_name"><?php echo $tm_info['nama_tenagamedis']; ?></p>
                     </div>
                     <span class="status">Berhasil</span>
-                    <button class="icon-button" id="open-modal-btn">
+                    <button class="icon-button open-modal-btn"  id="open-modal-btn" data-id="<?php echo $report['riwayat_id']; ?>">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon">
                         <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                        <path fill="#083344" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+                        <path fill="#083344" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/>
                       </svg>
                     </button>
-
                   </div>
                 </div>
               </div>
             </div>
           <?php endforeach; ?>
         </div>
+
         <!-- Schedule Ini Biarin ae-->
         <div id="schedule-content" class="tab-content">
           <div class="card-container">
@@ -224,49 +240,46 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
 
   <!-- Pop Up -->
   <div id="modal-wrapper" class="fixed z-10 inset-0 hidden">
-    <div class="flex items-center justify-center min-h-screen bg-gray-600 bg-opacity-75 transition-all">
-      <div class="flex flex-col justify-between bg-white rounded-lg w-2/3">
-        <button id="close-modal-btn" class="flex justify-end p-6">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon">
-            <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-            <path fill="#083344" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z" />
-          </svg>
-        </button>
-        <!-- Detail Pop up -->
-        <div class="flow-root items-center px-10 mb-10">
-          <dl class="-my-3 divide-y divide-gray-100 text-sm">
-            <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-              <dt class="font-medium text-gray-900">Date</dt>
-              <dd class="text-gray-700 sm:col-span-2"></dd>
-            </div>
+  <div class="flex items-center justify-center min-h-screen bg-gray-600 bg-opacity-75 transition-all">
+    <div class="flex flex-col justify-between bg-white rounded-lg w-2/3">
+      <button id="close-modal-btn" class="flex justify-end p-6">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon">
+          <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+          <path fill="#083344" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/>
+        </svg>
+      </button>
+      <!-- Detail Pop up -->
+      <div class="flow-root items-center px-10 mb-10">
+        <dl class="-my-3 divide-y divide-gray-100 text-sm">
+          <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+            <dt class="font-medium text-gray-900">Date</dt>
+            <dd class="text-gray-700 sm:col-span-2 date"></dd>
+          </div>
+          <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+            <dt class="font-medium text-gray-900">Doctor's Name</dt>
+            <dd class="text-gray-700 sm:col-span-2 doctor-name"></dd>
+          </div>
+          <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+            <dt class="font-medium text-gray-900">Name of Hospital</dt>
+            <dd class="text-gray-700 sm:col-span-2 hospital-name"></dd>
+          </div>
+          <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+            <dt class="font-medium text-gray-900">Medicine</dt>
+          </div>
 
-            <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-              <dt class="font-medium text-gray-900">Doctor's Name</dt>
-              <dd class="text-gray-700 sm:col-span-2"></dd>
-            </div>
-
-            <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-              <dt class="font-medium text-gray-900">Name of Hospital</dt>
-              <dd class="text-gray-700 sm:col-span-2"></dd>
-            </div>
-
-            <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-              <dt class="font-medium text-gray-900">Medicine</dt>
-              <dd class="text-gray-700 sm:col-span-2"></dd>
-            </div>
-
-            <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-              <dt class="font-medium text-gray-900">Other details</dt>
-              <dd class="text-gray-700 sm:col-span-2"></dd>
-            </div>
-          </dl>
-        </div>
+          <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+            <dt class="font-medium text-gray-900">Other details</dt>
+            <dd class="text-gray-700 sm:col-span-2 details"></dd>
+          </div>
+        </dl>
       </div>
     </div>
   </div>
+</div>
+
 
   <!-- JS -->
-  <script src="js/user.js"></script>
+  <script src="user/index.js"></script>
 </body>
 
 </html>

@@ -68,10 +68,88 @@ function toggleDetails(button) {
   }
 }
 
-document.getElementById("open-modal-btn").addEventListener("click", () => {
-  document.getElementById("modal-wrapper").classList.remove("hidden");
-});
+// document.getElementById("open-modal-btn").addEventListener("click", () => {
+//   document.getElementById("modal-wrapper").classList.remove("hidden");
+// });
 
 document.getElementById("close-modal-btn").addEventListener("click", () => {
   document.getElementById("modal-wrapper").classList.add("hidden");
 });
+
+// Select all buttons with class 'open-modal-btn'
+document.querySelectorAll(".open-modal-btn").forEach(button => {
+  button.addEventListener("click", () => {
+    const reportId = button.getAttribute("data-id");
+    // Mengirim permintaan AJAX untuk mendapatkan informasi riwayat
+    console.log(reportId);
+    fetch('get_report_info.php?id=' + reportId)
+    .then(response => response.json())
+    .then(data => {
+      // console.log(data); // Periksa respons di konsol browser
+      // Menetapkan nilai dari data yang diterima ke elemen-elemen di modal-wrapper
+      document.querySelector("#modal-wrapper .date").textContent = data.tanggal_riwayat;
+      document.querySelector("#modal-wrapper .doctor-name").textContent = data.nama_tenagamedis;
+      document.querySelector("#modal-wrapper .hospital-name").textContent = data.nama_rumahsakit;
+      document.querySelector("#modal-wrapper .details").textContent = data.keterangan_penyakit;
+      document.getElementById("modal-wrapper").classList.remove("hidden");
+        // Tampilkan modal
+      })
+      
+      .catch(error => console.error('Error:', error));
+  });
+});
+
+
+
+
+
+
+// document.addEventListener("DOMContentLoaded", function () {
+//   populatePatientData(patientData);
+  
+//   const modalWrapper = document.getElementById("modal-wrapper");
+
+//   document.querySelectorAll(".open-modal-btn").forEach(button => {
+//     button.addEventListener("click", function () {
+//       const reportId = this.getAttribute("data-id");
+//       // Fetch and display report details based on reportId
+//       fetchReportDetails(reportId);
+//       modalWrapper.classList.remove("hidden");
+//     });
+//   });
+
+//   document.getElementById("close-modal-btn").addEventListener("click", () => {
+//     modalWrapper.classList.add("hidden");
+//   });
+
+//   function fetchReportDetails(reportId) {
+//     // Fetch the report details from the server or array based on the reportId
+//     // For the sake of this example, we'll just update the modal content manually.
+//     // In a real-world scenario, you would fetch the details via AJAX.
+
+//     // Assuming `reports` is an array of report details available globally
+//     const report = reports.find(r => r.riwayat_id === reportId);
+//     if (report) {
+//       document.querySelector("#modal-wrapper .date").textContent = report.date;
+//       document.querySelector("#modal-wrapper .dr_name").textContent = report.dr_name;
+//       document.querySelector("#modal-wrapper .place").textContent = report.place;
+//       // Add other details similarly
+//     }
+//   }
+// });
+
+
+// // Add event listeners to each button
+// const popupButtons = document.querySelectorAll(".icon-button");
+// popupButtons.forEach(button => {
+//   button.addEventListener("click", () => {
+//     const card = button.closest(".card");
+//     const report = {
+//       tanggal_riwayat: card.querySelector(".date").textContent,
+//       nama_tenagamedis: card.querySelector(".dr_name").textContent,
+//       nama_rumahsakit: card.querySelector(".place").textContent
+//     };
+//     populatePopupDetails(report);
+//     document.getElementById("modal-wrapper").classList.remove("hidden");
+//   });
+// });

@@ -1,7 +1,7 @@
 <?php
 
 $host = 'localhost';
-$dbname = 'db31';
+$dbname = 'db37';
 $dbusername = "root";
 $dbpassword = "Boyolali394";
 

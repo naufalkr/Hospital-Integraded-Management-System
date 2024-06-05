@@ -1,6 +1,6 @@
-	create database if not exists db31;
+	create database if not exists db37;
 
-	use db31;
+	use db37;
 		create table matapelajaran
 		(
 			mapel_id     int auto_increment
@@ -22,10 +22,10 @@
 			nama_pasien varchar(100) not null,
 			Tanggal_Lahir DATE,
 			alamat    varchar(100) not null,
-			tinggi int not null,
-			berat_badan int not null,
-			golongan_darah varchar(5) not null,
-			alergi varchar(100) not null,
+			tinggi int,
+			berat_badan int,
+			golongan_darah varchar(5),
+			alergi varchar(100),
 			no_telepon_pasien varchar(100) not null,
 			jenis_kelamin varchar(100) not null
 		);
@@ -167,6 +167,7 @@
 	INSERT INTO pasien (NIK, password, email, usertype, nama_pasien, Tanggal_Lahir, alamat, tinggi, berat_badan, golongan_darah, alergi, no_telepon_pasien, jenis_kelamin) 
 	VALUES 
 	('1234567890', 'password123', 'pasien1@example.com', 'pasien', 'John Doe', '1985-01-15', 'Alamat Pasien 1', 175, 70, 'O', 'Debu', '081234567890', 'Laki-laki'),
+    ('1234', 'password123', 'pasien1@example.com', 'pasien', 'John Doe', '1985-01-15', 'Alamat Pasien 1', 175, 70, 'O', 'Debu', '081234567890', 'Laki-laki'),
 	('2345678901', 'password456', 'pasien2@example.com', 'pasien', 'Jane Smith', '1990-02-20', 'Alamat Pasien 2', 160, 55, 'A', 'Kacang', '082345678901', 'Perempuan'),
 	('3456789012', 'password789', 'pasien3@example.com', 'pasien', 'Michael Johnson', '1987-03-25', 'Alamat Pasien 3', 180, 80, 'B', 'Serbuk sari', '083456789012', 'Laki-laki'),
 	('4567890123', 'passwordabc', 'pasien4@example.com', 'pasien', 'Emily Brown', '1992-04-30', 'Alamat Pasien 4', 165, 60, 'AB', 'Laktosa', '084567890123', 'Perempuan'),
@@ -193,12 +194,12 @@
 	-- Insert data ke dalam tabel riwayat
 	INSERT INTO riwayat (riwayat_id, NIK, rumahsakit_id, tenagamedis_id, tanggal_riwayat, jenis_layanan, keterangan_penyakit) 
 	VALUES 
-    (12, '1234567890', 1, 101, '2024-05-01', 'Rawat Inap', 'Flu'),
-    (13, '1234567890', 1, 101, '2024-05-01', 'Rawat Inap', 'Flu'),
-	(14, '2345678901', 2, 102, '2024-05-02', 'Pemeriksaan', 'Demam'),
-	(15, '2345678901', 2, 102, '2024-05-02', 'Pemeriksaan', 'Demam'),
-	(1, '1234567890', 1, 101, '2024-05-01', 'Rawat Inap', 'Flu'),
-	(2, '2345678901', 2, 102, '2024-05-02', 'Pemeriksaan', 'Demam'),
+    (12, '1234', 1, 101, '2024-05-01', 'Rawat Inap', 'Flu'),
+    (13, '1234', 1, 101, '2024-05-01', 'Rawat Inap', 'Flu'),
+	(14, '1234', 2, 102, '2024-05-02', 'Pemeriksaan', 'Demam'),
+	(15, '1234', 2, 102, '2024-05-02', 'Pemeriksaan', 'Demam'),
+	(1, '1234', 1, 101, '2024-05-01', 'Rawat Inap', 'Flu'),
+	(2, '1234', 2, 102, '2024-05-02', 'Pemeriksaan', 'Demam'),
 	(3, '3456789012', 3, 103, '2024-05-03', 'Operasi', 'Patah tulang'),
 	(4, '4567890123', 4, 104, '2024-05-04', 'Pemeriksaan', 'Sakit perut'),
 	(5, '5678901234', 5, 105, '2024-05-05', 'Rawat Inap', 'Luka bakar'),

@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"){
             $_SESSION["last_regeneration"] = time();
 
             //login success
-            header("Location: ../dashboard.php?login=success");
+            header("Location: ../userdashboard.php?login=success");
             $pdo = null;
             $stmt = null;
 
@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"){
             $_SESSION["last_regeneration"] = time();
 
             //login success
-            header("Location: ../dashboard.php?login=success");
+            // header("Location: ../userdashboard.php?login=success");
             $pdo = null;
             $stmt = null;
 
