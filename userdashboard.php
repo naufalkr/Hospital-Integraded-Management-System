@@ -3,8 +3,7 @@ include_once 'includes/config_sessioninc.php';
 include_once 'includes/login_viewinc.php';
 include_once 'includes/dbhinc.php'; // Include the database connection file
 
-// Define the NIK to be fetched
-$nik = '1234567890';
+$nik = $_SESSION["user_NIK"];
 
 // Fetch user data based on NIK
 $query = $pdo->prepare("SELECT * FROM pasien WHERE NIK = :nik");
