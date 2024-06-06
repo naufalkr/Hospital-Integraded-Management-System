@@ -241,46 +241,46 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
 
   <!-- Pop Up -->
   <div id="modal-wrapper" class="fixed z-10 inset-0 hidden">
-  <div class="flex items-center justify-center min-h-screen bg-gray-600 bg-opacity-75 transition-all">
-    <div class="flex flex-col justify-between bg-white rounded-lg w-2/3">
-      <button id="close-modal-btn" class="flex justify-end p-6">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon">
-          <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-          <path fill="#083344" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/>
-        </svg>
-      </button>
-      <!-- Detail Pop up -->
-      <div class="flow-root items-center px-10 mb-10">
-        <dl class="-my-3 divide-y divide-gray-100 text-sm">
-          <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-            <dt class="font-medium text-gray-900">Date</dt>
-            <dd class="text-gray-700 sm:col-span-2 date"></dd>
-          </div>
-          <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-            <dt class="font-medium text-gray-900">Doctor's Name</dt>
-            <dd class="text-gray-700 sm:col-span-2 doctor-name"></dd>
-          </div>
-          <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-            <dt class="font-medium text-gray-900">Name of Hospital</dt>
-            <dd class="text-gray-700 sm:col-span-2 hospital-name"></dd>
-          </div>
-          <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-            <dt class="font-medium text-gray-900">Medicine</dt>
-          </div>
+    <div class="flex items-center justify-center min-h-screen bg-gray-600 bg-opacity-75 transition-all">
+      <div class="flex flex-col justify-between bg-white rounded-lg w-2/3">
+        <button id="close-modal-btn" class="flex justify-end p-6">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon">
+            <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+            <path fill="#083344" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/>
+          </svg>
+        </button>
+        <!-- Detail Pop up -->
+        <div class="flow-root items-center px-10 mb-10">
+          <dl class="-my-3 divide-y divide-gray-100 text-sm">
+            <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+              <dt class="font-medium text-gray-900">Date</dt>
+              <dd class="text-gray-700 sm:col-span-2 date"></dd>
+            </div>
+            <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+              <dt class="font-medium text-gray-900">Doctor's Name</dt>
+              <dd class="text-gray-700 sm:col-span-2 doctor-name"></dd>
+            </div>
+            <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+              <dt class="font-medium text-gray-900">Name of Hospital</dt>
+              <dd class="text-gray-700 sm:col-span-2 hospital-name"></dd>
+            </div>
+            <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+              <dt class="font-medium text-gray-900">Medicine</dt>
+            </div>
 
-          <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-            <dt class="font-medium text-gray-900">Other details</dt>
-            <dd class="text-gray-700 sm:col-span-2 details"></dd>
-          </div>
-        </dl>
+            <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+              <dt class="font-medium text-gray-900">Other details</dt>
+              <dd class="text-gray-700 sm:col-span-2 details"></dd>
+            </div>
+          </dl>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
   <!-- JS -->
-  <script src="user/index.js"></script>
+  <script src="user/indexuser.js"></script>
 </body>
 
 </html>

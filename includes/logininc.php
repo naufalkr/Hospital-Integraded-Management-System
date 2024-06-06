@@ -100,12 +100,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"){
             session_id($sessionId);
 
             $_SESSION["user_id"] = $result["id"];
-            $_SESSION["user_NIK"] = htmlspecialchars($result["NIK"]);
+            // $_SESSION["user_NIK"] = htmlspecialchars($result["NIK"]);
 
             $_SESSION["last_regeneration"] = time();
-
+            $_SESSION["tenagamedis_id"] = htmlspecialchars($result["tenagamedis_id"]);
             //login success
-            // header("Location: ../userdashboard.php?login=success");
+            header("Location: ../dokterdashboard.php?login=success");
             $pdo = null;
             $stmt = null;
 
