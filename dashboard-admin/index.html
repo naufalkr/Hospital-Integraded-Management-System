@@ -9,42 +9,37 @@
   <body class="bg-gray-100">
     <div class="flex h-screen bg-gray-200">
       <!-- Sidebar -->
-      <div class="w-64 bg-white p-4 shadow-lg">
+      <div
+        class="w-64 bg-gradient-to-b from-cyan-950 to-teal-500 p-4 shadow-lg text-white"
+      >
         <h2 class="text-2xl font-bold mb-4">Admin Dashboard</h2>
         <ul>
           <li>
             <a
               href="#"
-              class="block py-1 px-3 rounded hover:bg-blue-500 hover:text-white"
+              class="block py-1 px-3 rounded hover:bg-gray-600 hover:text-white"
               >Tenaga Medis</a
             >
           </li>
           <li>
             <a
               href="#"
-              class="block py-1 px-3 rounded hover:bg-blue-500 hover:text-white"
+              class="block py-1 px-3 rounded hover:bg-gray-600 hover:text-white"
               >Pasien</a
             >
           </li>
           <li>
             <a
               href="#"
-              class="block py-1 px-3 rounded hover:bg-blue-500 hover:text-white"
+              class="block py-1 px-3 rounded hover:bg-gray-600 hover:text-white"
               >Rumah Sakit</a
             >
           </li>
           <li>
             <a
               href="#"
-              class="block py-1 px-3 rounded hover:bg-blue-500 hover:text-white"
+              class="block py-1 px-3 rounded hover:bg-gray-600 hover:text-white"
               >Obat</a
-            >
-          </li>
-          <li>
-            <a
-              href="#"
-              class="block py-1 px-3 rounded hover:bg-blue-500 hover:text-white"
-              >Search</a
             >
           </li>
         </ul>
@@ -52,18 +47,25 @@
       <!-- Main content -->
       <div class="flex-1 p-10 text-2xl font-bold">
         <header class="flex justify-between pb-10">
-          <h2 class="text-2xl font-bold">Selamat datang, Admin!</h2>
+          <h2 class="text-2xl font-bold text-teal-500">
+            Selamat datang, Admin!
+          </h2>
           <button
-            class="font-bold text-black rounded p-2 hover:bg-red-500 hover:text-white"
+            class="font-bold text-teal-500 rounded p-2 hover:bg-red-500 hover:text-white"
           >
             Keluar
           </button>
         </header>
         <!-- Replace this with the content of your page -->
         <div id="content" class="flex flex-col">
-          <h3 class="text-xl mb-4">User Management</h3>
-
-          <!-- User Management content goes here -->
+          <h3 class="text-xl mb-4">Dashboard</h3>
+          <button
+            type="button"
+            id="tambahButton"
+            class="hover:bg-teal-500 p-2 rounded-lg"
+          >
+            add
+          </button>
         </div>
       </div>
     </div>
