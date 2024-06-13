@@ -43,8 +43,9 @@ function get_email_tenagamedis(object $pdo, string $email){
     return $result;
 }
 
-function set_user_pasien(object $pdo, string $NIK,string $password,string $email,string $nama_pasien,string $alamat,string $no_telepon_pasien,string $jenis_kelamin){
-    $query = "INSERT INTO pasien(NIK, password, email, nama_pasien, alamat, no_telepon_pasien, jenis_kelamin) VALUES (:NIK, :password, :email, :nama_pasien, :alamat, :no_telepon_pasien, :jenis_kelamin)";
+function set_user_pasien(object $pdo, string $NIK, string $password, string $email, string $nama_pasien,  string $Tanggal_Lahir, string $alamat, int $tinggi, int $berat_badan, string $golongan_darah, string $alergi, string $no_telepon_pasien, string $jenis_kelamin){
+    $query = "INSERT INTO pasien(NIK, password, email, nama_pasien, Tanggal_Lahir, alamat, tinggi, berat_badan, golongan_darah, alergi, no_telepon_pasien, jenis_kelamin) 
+              VALUES (:NIK, :password, :email, :nama_pasien, :Tanggal_Lahir, :alamat, :tinggi, :berat_badan, :golongan_darah, :alergi, :no_telepon_pasien, :jenis_kelamin)";
     $stmt = $pdo->prepare($query);
 
     $options = [
@@ -56,7 +57,12 @@ function set_user_pasien(object $pdo, string $NIK,string $password,string $email
     $stmt->bindParam(":password", $hashedPassword);
     $stmt->bindParam(":email", $email);
     $stmt->bindParam(":nama_pasien", $nama_pasien);
+    $stmt->bindParam(":Tanggal_Lahir", $Tanggal_Lahir);
     $stmt->bindParam(":alamat", $alamat);
+    $stmt->bindParam(":tinggi", $tinggi);
+    $stmt->bindParam(":berat_badan", $berat_badan);
+    $stmt->bindParam(":golongan_darah", $golongan_darah);
+    $stmt->bindParam(":alergi", $alergi);
     $stmt->bindParam(":no_telepon_pasien", $no_telepon_pasien);
     $stmt->bindParam(":jenis_kelamin", $jenis_kelamin);
     // $stmt->bindParam(":nama_pasien", $nama_pasien);

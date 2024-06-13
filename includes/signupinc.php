@@ -50,11 +50,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Form is from signup.php (patient)
         $NIK = $_POST["NIK"];
         $password = $_POST["password"];
-        $email = $_POST["email"];
-        $nama_pasien = $_POST["nama_pasien"];
-        $alamat = $_POST["alamat"];
-        $no_telepon_pasien = $_POST["no_telepon_pasien"];
-        $jenis_kelamin = $_POST["jenis_kelamin"];
+        $email = $_POST['email'];
+        $nama_pasien = $_POST['nama_pasien'];
+        $Tanggal_Lahir = $_POST['Tanggal_Lahir'];
+        $alamat = $_POST['alamat'];
+        $tinggi = $_POST['tinggi'];
+        $berat_badan = $_POST['berat_badan'];
+        $golongan_darah = $_POST['golongan_darah'];
+        $alergi = $_POST['alergi'];
+        $no_telepon_pasien = $_POST['no_telepon_pasien'];
+        $jenis_kelamin = $_POST['jenis_kelamin'];
 
         // Error handler
         $errors = [];
@@ -81,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             die();
         }
 
-        create_user_pasien($pdo, $NIK, $password, $email, $nama_pasien, $alamat, $no_telepon_pasien, $jenis_kelamin);
+        create_user_pasien($pdo, $NIK, $password, $email, $nama_pasien, $Tanggal_Lahir, $alamat, $tinggi, $berat_badan, $golongan_darah, $alergi, $no_telepon_pasien, $jenis_kelamin);
 
         header("Location: ../index.php?signup=success");
     }

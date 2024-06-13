@@ -138,10 +138,6 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
             <span class="text-gray-500"><?php echo htmlspecialchars($user['email']); ?></span>
             <!-- <span class="text-gray-500"></span> -->
           </div>
-          <div class="flex justify-between">
-            <span class="font-semibold text-cyan-950 text-sm">Last Check Up:</span>
-            <span class="text-gray-500"></span>
-          </div>
         </div>
       </div>
     </div>

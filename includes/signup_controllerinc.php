@@ -40,10 +40,17 @@ function is_email_registered(object $pdo, string $email){
     }
 }
 
-function create_user_pasien(object $pdo, string $NIK,string $password,string $email,string $nama_pasien,string $alamat,string $no_telepon_pasien,string $jenis_kelamin){
+function create_user_pasien(object $pdo, string $NIK,string $password,string $email,string $nama_pasien, string $Tanggal_Lahir, string $alamat, int $tinggi, int $berat_badan, string $golongan_darah, string $alergi, string $no_telepon_pasien,string $jenis_kelamin){
     // set_user($pdo, $NIK, $password, $email);
-    set_user_pasien($pdo, $NIK,$password,$email,$nama_pasien,$alamat,$no_telepon_pasien,$jenis_kelamin);
+    set_user_pasien($pdo, $NIK,$password,$email,$nama_pasien,$Tanggal_Lahir,$alamat,$tinggi,$berat_badan,$golongan_darah,$alergi,$no_telepon_pasien,$jenis_kelamin);
 }
+
+// $stmt->bindParam(":Tanggal_Lahir", $Tanggal_Lahir);
+//     $stmt->bindParam(":alamat", $alamat);
+//     $stmt->bindParam(":tinggi", $tinggi);
+//     $stmt->bindParam(":berat_badan", $berat_badan);
+//     $stmt->bindParam(":golongan_darah", $golongan_darah);
+//     $stmt->bindParam(":alergi", $alergi);
 
 function create_user_tenagamedis(object $pdo, int $tenagamedis_id,string $password,string $email,string $nama_tenagamedis,string $spesialisasi,string $jenis_kelamin,string $no_telepon_tenagamedis){
     // set_user($pdo, $NIK, $password, $email);
