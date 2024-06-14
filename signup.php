@@ -29,7 +29,12 @@ require_once 'includes/signup_viewinc.php';
                     <input type="password" name="password" placeholder="Password" required>
                     <input type="text" name="email" placeholder="E-mail" required>
                     <input type="text" name="nama_pasien" placeholder="Nama" required>
+                    <input type="date" name="Tanggal_Lahir" placeholder="Tanggal Lahir" required>
                     <input type="text" name="alamat" placeholder="Alamat" required>
+                    <input type="number" name="tinggi" placeholder="Tinggi (cm)" required>
+                    <input type="number" name="berat_badan" placeholder="Berat Badan (kg)" required>
+                    <input type="text" name="golongan_darah" placeholder="Golongan Darah" required>
+                    <input type="text" name="alergi" placeholder="Alergi" required>
                     <input type="text" name="no_telepon_pasien" placeholder="Nomor Telepon" required>
                     <input type="text" name="jenis_kelamin" placeholder="Jenis Kelamin" required>
 

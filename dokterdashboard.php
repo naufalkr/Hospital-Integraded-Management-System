@@ -71,7 +71,7 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
   </head>
 
-  <body class="bg-[#f4f5f8]">
+  <body class="bg-[#f4f5f8] h-[100vh]">
     <!-- Header -->
     <div class="gradient-bg p-8 flex justify-between items-center text-white">
       <div class="flex items-center">
@@ -101,7 +101,7 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
     </div>
 
     <!-- Patient Information -->
-    <div class="container mx-auto mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6 px-6">
+    <div class="h-full bg-red-600 container mx-auto mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6 px-6">
       <div class="bg-white rounded-lg p-6">
         <h3 class="text-xl font-bold mb-4 text-teal-500">PATIENT INFORMATION</h3>
         <?php if ($patient): ?>
@@ -136,11 +136,11 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
       </div>
 
       <!-- Patient Medical Reports -->
-      <div class="bg-white rounded-lg p-4 col-span-2">
+      <div class="h-full bg-white rounded-lg p-4 col-span-2 ">
         <h3 class="text-xl mb-4 font-bold p-2 text-teal-500">
           PATIENT MEDICAL REPORTS
         </h3>
-        <div class="overflow-y-scroll h-96 custom-scrollbar px-2">
+        <div class="overflow-y-scroll h-96 custom-scrollbar px-2 h-full">
           <?php foreach ($reports as $report) : ?>
           <div class="card-container">
               <div class="card">
