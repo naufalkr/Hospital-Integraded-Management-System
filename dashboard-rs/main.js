@@ -1,3 +1,7 @@
+window.onload = function () {
+  // Store the original content when the page loads
+  originalContent = document.getElementById("content").innerHTML;
+};
 // ini isinya pasien2 dari tenaga medis
 const tenagaMedisView = `
 <div class="flex flex-row justify-between">
@@ -196,19 +200,6 @@ const tambahRiwayat = `
   </div>
   `;
 
-const defaultContent = `
-  <div class="flex-1 text-2xl font-bold">
-        <div id="content" class="flex flex-col">
-          <div class="h-[90vh] flex flex-col items-center justify-center ">
-            <div class="flex flex-col text-gray-600">
-              <h1 class="flex justify-start text-[100px] m-14">Halo</h1>
-              <h1 class="flex justify-end text-[80px]">Selamat Datang!</h1>
-            </div>
-          </div>
-          </div>
-        </div>
-      </div>`;
-
 function switchContent(contentType) {
   switch (contentType) {
     case "Tenaga Medis":
@@ -230,7 +221,7 @@ function switchContent(contentType) {
       content.innerHTML = tambahRiwayat;
       break;
     default:
-      content.innerHTML = defaultContent;
+      content.innerHTML = originalContent;
   }
 }
 
