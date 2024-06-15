@@ -21,7 +21,7 @@ require_once 'includes/signup_viewinc.php';
             <img src="Images/wp_login.png" alt="login_image" class="background-image">
         </div>
         <div class="content-right">
-            <img src="Images/Logo_MBD.png" alt="Logo" class="logo">
+            <img src="Images/Logo_MBD_SVG.svg" alt="Logo" class="logo">
             <h1>MEDLINK</h1>
             <p>Welcome! Login to Continue or Register Yourself</p>
             <a href="login.php" style="text-decoration: none;">Login</a>
