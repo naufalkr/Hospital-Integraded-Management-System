@@ -1,5 +1,4 @@
 window.onload = function () {
-  // Store the original content when the page loads
   originalContent = document.getElementById("content").innerHTML;
 };
 // ini isinya pasien2 dari tenaga medis
@@ -62,6 +61,9 @@ const tenagaMedis = `
     `
     ).join("")}
     </ul>
+  </div>
+  <div class="flex justify-center my-4">
+  <a href="../index.php" class="p-2 rounded-lg bg-gray-400 hover:bg-teal-500 text-white">Tambah Tenaga Medis</a>
   </div>
   `;
 
@@ -161,6 +163,9 @@ const pasien = `
     ).join("")}
     </ul>
   </div>
+   <div class="flex justify-center my-4">
+  <a href="../index.php" class="p-2 rounded-lg bg-gray-400 hover:bg-teal-500 text-white">Tambah Pasien</a>
+  </div>
   `;
 
 const tambahRiwayat = `
@@ -196,7 +201,7 @@ const tambahRiwayat = `
         <input type="text" id="keterangan" name="keterangan" class="w-2/3 rounded-lg shadow-md bg-gray-100 ">
       </div>
       </form>
-      <input type="submit" value="Submit" class="flex my-4 mx-auto p-2 rounded-lg bg-gray-400 cursor-pointer hover:bg-teal-500 hover:text-white">
+      <input type="submit" value="Submit" class="flex my-4 mx-auto p-2 rounded-lg bg-gray-400 text-white cursor-pointer hover:bg-teal-500">
   </div>
   `;
 
