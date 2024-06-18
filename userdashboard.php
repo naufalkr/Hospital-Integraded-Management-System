@@ -46,7 +46,7 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>User Dashboard</title>
   <!-- css -->
-  <link rel="stylesheet" href="user/style.css" />
+  <link rel="stylesheet" href="user/index.css" />
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -76,9 +76,9 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
           User Dashboard
         </p>
       </div>
-      <!-- <?php output_NIK()?> -->
+      <!-- <?php output_NIK() ?> -->
       <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-        <form action="includes/logoutinc.php" >
+        <form action="includes/logoutinc.php">
           <button class="flex bg-teal-500 text-white px-4 py-2 rounded-lg font-regular">
             Log Out
           </button>
@@ -180,10 +180,10 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
                       <p class="dr_name"><?php echo $tm_info['nama_tenagamedis']; ?></p>
                     </div>
                     <span class="status">Berhasil</span>
-                    <button class="icon-button open-modal-btn"  id="open-modal-btn" data-id="<?php echo $report['riwayat_id']; ?>">
+                    <button class="icon-button open-modal-btn" id="open-modal-btn" data-id="<?php echo $report['riwayat_id']; ?>">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon">
                         <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                        <path fill="#083344" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/>
+                        <path fill="#083344" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
                       </svg>
                     </button>
                   </div>
@@ -242,7 +242,7 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
         <button id="close-modal-btn" class="flex justify-end p-6">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon">
             <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-            <path fill="#083344" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/>
+            <path fill="#083344" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z" />
           </svg>
         </button>
         <!-- Detail Pop up -->
