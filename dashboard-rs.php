@@ -34,10 +34,6 @@
     $patients = $pasien->fetchAll(PDO::FETCH_ASSOC);
     
     
-     
-     
-
-     // Prepare the query to fetch data from rumah_sakit where rumahsakit_id = :rumahsakit_id
     // $riwayat_dokter = $pdo->prepare("SELECT * FROM tenaga_medis WHERE rumahsakit_id = :rumahsakit_id ORDER BY spesialisasi");
     // $riwayat_dokter->execute(['rumahsakit_id' => $rumahsakit_id]);
     // $dokter_riwayat = $riwayat_dokter->fetchAll(PDO::FETCH_ASSOC);
@@ -53,35 +49,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="dashboard-rs/output.css" />
+    <style>
+      .search-bar {
+        padding: 0.5rem;
+        margin: 1rem 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .doctor-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 4px;
+        padding: 8px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .list-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 4px;
+        padding: 8px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+    </style>
   </head>
   <body class="bg-gray-200">
     <div class="flex h-screen">
       <!-- Sidebar -->
-      <div
-        class="w-64 bg-gradient-to-b from-cyan-950 to-teal-500 p-4 shadow-lg text-white"
-      >
+      <div class="w-64 bg-gradient-to-b from-cyan-950 to-teal-500 p-4 shadow-lg text-white">
         <h2 class="text-2xl font-bold mb-4 text-gray-200"><?php echo htmlspecialchars($rumah_sakit['nama_rumahsakit']); ?></h2>
         <ul class="text-xl font-bold text-gray-200">
           <li>
-            <a
-              href="#"
-              class="block py-1 px-3 rounded hover:bg-gray-600 hover:text-white"
-              >Tenaga Medis</a
-            >
+            <a href="#" class="block py-1 px-3 rounded hover:bg-gray-600 hover:text-white" onclick="showTenagaMedis()">Tenaga Medis</a>
           </li>
           <li>
-            <a
-              href="#"
-              class="block py-1 px-3 rounded hover:bg-gray-600 hover:text-white"
-              >Pasien</a
-            >
+            <a href="#" class="block py-1 px-3 rounded hover:bg-gray-600 hover:text-white" onclick="showPasien()">Pasien</a>
           </li>
           <li>
-            <a
-              href="#"
-              class="block py-1 px-3 rounded hover:bg-gray-600 hover:text-white"
-              >Tambah Riwayat</a
-            >
+            <a href="#" class="block py-1 px-3 rounded hover:bg-gray-600 hover:text-white">Tambah Riwayat</a>
           </li>
         </ul>
       </div>
@@ -93,78 +101,118 @@
               <h1 class="flex justify-end text-[80px]">Selamat Datang!</h1>
             </div>
           </div>
-          </div>
         </div>
       </div>
     </div>
     <script>
-        window.onload = function () {
+      let originalContent;
+
+
+      window.onload = function () {
         originalContent = document.getElementById("content").innerHTML;
-        };
+      };
 
-        const tenagaMedis = `
+      const tenagaMedis = `
         <div class="flex flex-row justify-between">
-        <h1 class="text-black">Daftar Tenaga Medis <?php echo htmlspecialchars($rumah_sakit['nama_rumahsakit']); ?></h1>
-        <button
-                    class="font-bold text-black rounded p-2 hover:bg-red-500 hover:text-white right-6" onclick="switchContent()">
-                    Keluar
-                </button>
+          <h1 class="text-black">Daftar Tenaga Medis <?php echo htmlspecialchars($rumah_sakit['nama_rumahsakit']); ?></h1>
+          <button class="font-bold text-black rounded p-2 hover:bg-red-500 hover:text-white right-6" onclick="switchContent()">
+            Keluar
+          </button>
         </div>
+        <input type="text" id="searchBar" class="search-bar" onkeyup="filterDoctors()" placeholder="Search for doctors..">
         <div class="h-[80vh] overflow-y-scroll rounded-lg">
-            <ul>
-                <?php foreach ($dokter_rs as $doks) : ?>
-                    <li class="flex items-center justify-between shadow-md m-4 rounded-lg">
-                        <div class="flex flex-row">
-                            <img src="dashboard-rs/avatar.jpg" class="w-20 h-20 rounded-full mx-4 my-2">
-                            <div class="flex items-center justify-center flex-col">
-                                <p class="text-sm"><?php echo htmlspecialchars($doks['nama_tenagamedis']); ?></p>
-                                <p class="text-xs text-gray-400"><?php echo htmlspecialchars($doks['spesialisasi']); ?></p>
-                            </div>
-                        </div>
-                        <div>
-                           <button class="hover:bg-teal-500 hover:text-white hover:rounded-lg p-2 py-1 my-2 mx-4" onclick="switchContent('Tenaga Medis View', '<?php echo $doks['tenagamedis_id']; ?>', '<?php echo htmlspecialchars($doks['nama_tenagamedis']); ?>')">View</button>
-                        </div>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-
-        <div class="flex justify-center my-4">
-        <a href="../index.php" class="p-2 rounded-lg bg-gray-400 hover:bg-teal-500 text-white">Tambah Tenaga Medis</a>
-        </div>
-        `;
-
-
-        const pasien = `
-       <div class="flex flex-row justify-between">
-        <h1 class="text-black">Daftar Pasien <?php echo htmlspecialchars($rumah_sakit['nama_rumahsakit']); ?></h1>
-        <button
-                    class="font-bold text-black rounded p-2 hover:bg-red-500 hover:text-white right-6" onclick="switchContent()">
-                    Keluar
-                </button>
-        </div>
-        <div class="h-[80vh] overflow-y-scroll rounded-lg">
-            <ul>
-                <?php foreach ($patients as $patient) : ?>
-                    <li class="flex items-center justify-between shadow-md m-4 rounded-lg">
-                        <div class="flex flex-row">
-                            <img src="dashboard-rs/avatar.jpg" class="w-20 h-20 rounded-full mx-4 my-2">
-                            <div class="flex items-center justify-center flex-col">
-                                <p class="text-sm"><?php echo htmlspecialchars($patient['nama_pasien']); ?></p>
-                                <p class="text-xs text-gray-400"><?php echo htmlspecialchars($patient['NIK']); ?></p>
-                            </div>
-                        </div>
-                        <div>
-                           <button class="hover:bg-teal-500 hover:text-white hover:rounded-lg p-2 py-1 my-2 mx-4" onclick="switchContent('Pasien View', '<?php echo $patient['NIK']; ?>', '<?php echo htmlspecialchars($patient['nama_pasien']); ?>')">View</button>
-                        </div>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+          <ul id="doctorList">
+            <?php foreach ($dokter_rs as $doks) : ?>
+              <li class="doctor-item">
+                <div class="flex items-center">
+                  <img src="dashboard-rs/avatar.jpg" class="w-20 h-20 rounded-full mx-4 my-2">
+                  <div>
+                    <p class="text-sm doctor-name"><?php echo htmlspecialchars($doks['nama_tenagamedis']); ?></p>
+                    <p class="text-xs text-gray-400"><?php echo htmlspecialchars($doks['spesialisasi']); ?></p>
+                  </div>
+                </div>
+                <div>
+                  <button class="hover:bg-teal-500 hover:text-white hover:rounded-lg p-2 py-1 my-2 mx-4" onclick="switchContent('Tenaga Medis View', '<?php echo $doks['tenagamedis_id']; ?>', '<?php echo htmlspecialchars($doks['nama_tenagamedis']); ?>')">View</button>
+                </div>
+              </li>
+            <?php endforeach; ?>
+          </ul>
         </div>
         <div class="flex justify-center my-4">
-        <a href="../index.php" class="p-2 rounded-lg bg-gray-400 hover:bg-teal-500 text-white">Tambah Pasien</a>
+          <a href="../index.php" class="p-2 rounded-lg bg-gray-400 hover:bg-teal-500 text-white">Tambah Tenaga Medis</a>
         </div>
-        `;
+      `;
+
+      function filterDoctors() {
+        const searchValue = document.getElementById("searchBar").value.toLowerCase();
+        const doctorItems = document.querySelectorAll(".doctor-item");
+        doctorItems.forEach(item => {
+          const name = item.querySelector(".doctor-name").textContent.toLowerCase();
+          if (name.includes(searchValue)) {
+            item.style.display = "";
+          } else {
+            item.style.display = "none";
+          }
+        });
+      }
+
+        
+      const pasien = `
+        <div class="flex flex-row justify-between">
+          <h1 class="text-black">Daftar Pasien <?php echo htmlspecialchars($rumah_sakit['nama_rumahsakit']); ?></h1>
+          <button class="font-bold text-black rounded p-2 hover:bg-red-500 hover:text-white right-6" onclick="switchContent()">
+            Keluar
+          </button>
+        </div>
+        <input type="text" id="searchBarPasien" class="search-bar" onkeyup="filterPatients()" placeholder="Search for patients..">
+        <div class="h-[80vh] overflow-y-scroll rounded-lg">
+          <ul id="patientList">
+            <?php foreach ($patients as $patient) : ?>
+              <li class="list-item">
+                <div class="flex items-center">
+                  <img src="dashboard-rs/avatar.jpg" class="w-20 h-20 rounded-full mx-4 my-2">
+                  <div>
+                    <p class="text-sm patient-name"><?php echo htmlspecialchars($patient['nama_pasien']); ?></p>
+                    <p class="text-xs text-gray-400"><?php echo htmlspecialchars($patient['NIK']); ?></p>
+                  </div>
+                </div>
+                <div>
+                  <button class="hover:bg-teal-500 hover:text-white hover:rounded-lg p-2 py-1 my-2 mx-4" onclick="switchContent('Pasien View', '<?php echo $patient['NIK']; ?>', '<?php echo htmlspecialchars($patient['nama_pasien']); ?>')">View</button>
+                </div>
+              </li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+        <div class="flex justify-center my-4">
+          <a href="../index.php" class="p-2 rounded-lg bg-gray-400 hover:bg-teal-500 text-white">Tambah Pasien</a>
+        </div>
+      `;
+        
+      function filterPatients() {
+        const searchValue = document.getElementById("searchBar").value.toLowerCase();
+        const doctorItems = document.querySelectorAll(".list-item");
+        doctorItems.forEach(item => {
+          const name = item.querySelector(".patient-name").textContent.toLowerCase();
+          if (name.includes(searchValue)) {
+            item.style.display = "";
+          } else {
+            item.style.display = "none";
+          }
+        });
+      }
+
+      function filterPatients() {
+        const searchValue = document.getElementById("searchBarPasien").value.toLowerCase();
+        const patientItems = document.querySelectorAll(".list-item");
+        patientItems.forEach(item => {
+          const name = item.querySelector(".patient-name").textContent.toLowerCase();
+          if (name.includes(searchValue)) {
+            item.style.display = "";
+          } else {
+            item.style.display = "none";
+          }
+        });
+      }
 
         const tambahRiwayat = `
         <button
@@ -186,8 +234,12 @@
                 <input type="text" id="dokter" name="tenagamedis_id" class="w-2/3 rounded-lg shadow-md bg-gray-100 ">
             </div>
             <div class="flex justify-between items-center">
-                <label for="waktu" class="w-1/3">Waktu:</label>
+                <label for="waktu" class="w-1/3">Tanggal:</label>
                 <input type="date" id="waktu" name="tanggal_riwayat" class="w-2/3 rounded-lg shadow-md bg-gray-100">
+            </div>
+            <div class="flex justify-between items-center">
+                <label for="obat" class="w-1/3">ID Obat:</label>
+                <input type="text" id="obat" name="obat_id" class="w-2/3 rounded-lg shadow-md bg-gray-100 ">
             </div>
             <div class="flex justify-between items-center">
                 <label for="jenisLayanan" class="w-1/3">Jenis Layanan:</label>

@@ -2,9 +2,9 @@
 
 declare(strict_types= 1);
 
-function set_riwayat(object $pdo, int $riwayat_id, int $NIK,int $rumahsakit_id,int $tenagamedis_id,string $tanggal_riwayat,string $jenis_layanan, string $keterangan_penyakit){
-    $query = "INSERT INTO riwayat(riwayat_id, NIK, rumahsakit_id, tenagamedis_id, tanggal_riwayat, jenis_layanan, keterangan_penyakit) 
-              VALUES (:riwayat_id, :NIK, :rumahsakit_id, :tenagamedis_id, :tanggal_riwayat, :jenis_layanan, :keterangan_penyakit)";
+function set_riwayat(object $pdo, int $riwayat_id, int $NIK,int $rumahsakit_id,int $tenagamedis_id,int $obat_id,string $tanggal_riwayat,string $jenis_layanan, string $keterangan_penyakit){
+    $query = "INSERT INTO riwayat(riwayat_id, NIK, rumahsakit_id, tenagamedis_id, obat_id, tanggal_riwayat, jenis_layanan, keterangan_penyakit) 
+              VALUES (:riwayat_id, :NIK, :rumahsakit_id, :tenagamedis_id, :obat_id, :tanggal_riwayat, :jenis_layanan, :keterangan_penyakit)";
     $stmt = $pdo->prepare($query);
 
     $options = [
@@ -15,6 +15,7 @@ function set_riwayat(object $pdo, int $riwayat_id, int $NIK,int $rumahsakit_id,i
     $stmt->bindParam(":NIK", $NIK);
     $stmt->bindParam(":rumahsakit_id", $rumahsakit_id);
     $stmt->bindParam(":tenagamedis_id", $tenagamedis_id);
+    $stmt->bindParam(":obat_id", $obat_id);
     $stmt->bindParam(":tanggal_riwayat", $tanggal_riwayat);
     $stmt->bindParam(":jenis_layanan", $jenis_layanan);
     $stmt->bindParam(":keterangan_penyakit", $keterangan_penyakit);

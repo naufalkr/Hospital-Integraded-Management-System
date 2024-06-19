@@ -1,16 +1,6 @@
-	create database if not exists db57;
+	create database if not exists db68;
 
-	use db57;
-		create table matapelajaran
-		(
-			mapel_id     int auto_increment
-				primary key,
-			mapel        varchar(255) null,
-			kelas        varchar(20)  null,
-			pdfs         mediumblob   null,
-			videos       varchar(255) null,
-			latihan_soal mediumblob   null
-		);
+	use db68;
 
 		create table pasien
 		(
@@ -54,27 +44,29 @@
 			FOREIGN KEY (rumahsakit_id) REFERENCES rumah_sakit(rumahsakit_id)
 		);
 
-		
+				-- Tabel obat
+		CREATE TABLE obat (
+			obat_id INT PRIMARY KEY,
+			nama_obat VARCHAR(100),
+			deskripsi VARCHAR(255)
+		);
+
 
 		CREATE TABLE riwayat (
 			riwayat_id INT PRIMARY KEY,
 			NIK VARCHAR(10),
 			rumahsakit_id INT,
 			tenagamedis_id INT,
+            obat_id INT,
 			tanggal_riwayat DATE,
 			jenis_layanan VARCHAR(100),
 			keterangan_penyakit VARCHAR(255),
 			FOREIGN KEY (NIK) REFERENCES pasien(NIK),
 			FOREIGN KEY (rumahsakit_id) REFERENCES rumah_sakit(rumahsakit_id),
-			FOREIGN KEY (tenagamedis_id) REFERENCES tenaga_medis(tenagamedis_id)
+			FOREIGN KEY (tenagamedis_id) REFERENCES tenaga_medis(tenagamedis_id),
+            FOREIGN KEY (obat_id) REFERENCES obat(obat_id)
 		);
 
-		-- Tabel obat
-		CREATE TABLE obat (
-			obat_id INT PRIMARY KEY,
-			nama_obat VARCHAR(100),
-			deskripsi VARCHAR(255)
-		);
 
 	-- Buat tabel email_log
 CREATE TABLE email_log (
@@ -178,7 +170,7 @@ DELIMITER ;
 	INSERT INTO pasien (NIK, password, email, usertype, nama_pasien, Tanggal_Lahir, alamat, tinggi, berat_badan, golongan_darah, alergi, no_telepon_pasien, jenis_kelamin) 
 	VALUES 
 	('1432', '$2y$12$gTcfD83ekLjc6BdJuHlHYuDKTaDjNy38p2isFH7CBhndR/P8e96AC', 'pasien1@example.com', 'pasien', 'John Doe', '1985-01-15', 'Alamat Pasien 1', 175, 70, 'O', 'Debu', '081234567890', 'Laki-laki'),
-    ('1234', 'password123', 'pasien1@example.com', 'pasien', 'John Doe', '1985-01-15', 'Alamat Pasien 1', 175, 70, 'O', 'Debu', '081234567890', 'Laki-laki'),
+    ('1234', '$2y$12$gTcfD83ekLjc6BdJuHlHYuDKTaDjNy38p2isFH7CBhndR/P8e96AC', 'pasien1@example.com', 'pasien', 'John Doe', '1985-01-15', 'Alamat Pasien 1', 175, 70, 'O', 'Debu', '081234567890', 'Laki-laki'),
     ('1345', 'password123', 'pasien1@example.com', 'pasien', 'John Doe', '1985-01-15', 'Alamat Pasien 1', 175, 70, 'O', 'Debu', '081234567890', 'Laki-laki'),
     ('12346', 'password123', 'pasien1@example.com', 'pasien', 'John Doe', '1985-01-15', 'Alamat Pasien 1', 175, 70, 'O', 'Debu', '081234567890', 'Laki-laki'),
 	('1234567890', 'password456', 'pasien2@example.com', 'pasien', 'Jane Smith', '1990-02-20', 'Alamat Pasien 2', 160, 55, 'A', 'Kacang', '082345678901', 'Perempuan'),
@@ -242,47 +234,91 @@ INSERT INTO tenaga_medis (tenagamedis_id, rumahsakit_id, password, email, userty
 	VALUES 
 	(1004, 1, '$2y$12$gTcfD83ekLjc6BdJuHlHYuDKTaDjNy38p2isFH7CBhndR/P8e96AC', 'medis1@example.com', 'tenaga medis', 'Dr. Naufal', 'Spesialis 1', 'Laki-laki', '081011223344');
 
-	-- Insert data ke dalam tabel riwayat
-	INSERT INTO riwayat (riwayat_id, NIK, rumahsakit_id, tenagamedis_id, tanggal_riwayat, jenis_layanan, keterangan_penyakit) 
-	VALUES 
-	(3, '3456789012', 3, 103, '2024-05-03', 'Operasi', 'Patah tulang'),
-	(4, '4567890123', 4, 104, '2024-05-04', 'Pemeriksaan', 'Sakit perut'),
-	(5, '5678901234', 5, 105, '2024-05-05', 'Rawat Inap', 'Luka bakar'),
-    (6, '1234567890', 1, 101, '2024-05-01', 'Operasi', 'Flu'),
-    (7, '1234', 4, 104, '2024-05-04', 'Pemeriksaan', 'Sakit perut'),
- 	(8, '1234567890', 5, 105, '2024-05-05', 'Rawat Inap', 'Luka bakar'),
-     (9, '1234567890', 4, 104, '2024-05-04', 'Pemeriksaan', 'Sakit perut'),
- 	(10, '1234567890', 5, 105, '2024-05-05', 'Rawat Inap', 'Luka bakar'),
-     (11, '1234567890', 1, 101, '2024-05-01', 'Rawat Inap', 'Flu');
-
-INSERT INTO riwayat (riwayat_id, NIK, rumahsakit_id, tenagamedis_id, tanggal_riwayat, jenis_layanan, keterangan_penyakit) 
-	VALUES 
-    (31, '1345', 1, 101, '2024-05-01', 'Rawat Inap', 'Flu'),
-    (30, '1345', 1, 101, '2024-05-12', 'Rawat Inap', 'Flu'),
-	(32, '1345', 2, 102, '2024-05-15', 'Pemeriksaan', 'Demam'),
-	(33, '1345', 2, 102, '2024-05-20', 'Pemeriksaan', 'Demam'),
-	(34, '1345', 1, 101, '2024-05-21', 'Rawat Inap', 'Flu'),
-	(35, '1345', 2, 102, '2024-05-29', 'Pemeriksaan', 'Demam'),
-	(36, '1345', 1, 101, '2024-05-01', 'Rawat Inap', 'Flu'),
-    (37, '1345', 1, 101, '2024-05-12', 'Rawat Inap', 'Flu'),
-	(38, '1345', 2, 102, '2024-05-15', 'Pemeriksaan', 'Demam'),
-	(39, '1345', 2, 102, '2024-05-20', 'Pemeriksaan', 'Demam'),
-	(40, '1345', 1, 101, '2024-05-21', 'Rawat Inap', 'Flu'),
-	(41, '1345', 2, 102, '2024-05-29', 'Pemeriksaan', 'Demam');
-
-    
 	-- Insert data ke dalam tabel obat
-	INSERT INTO obat (obat_id, nama_obat, deskripsi) 
-	VALUES 
-	(1, 'Paracetamol', 'Obat penurun demam dan pereda nyeri'),
-	(2, 'Amoxicillin', 'Antibiotik untuk infeksi bakteri'),
-	(3, 'Ibuprofen', 'Obat antiinflamasi nonsteroid'),
-	(4, 'Omeprazole', 'Obat untuk masalah pencernaan'),
-	(5, 'Diazepam', 'Obat penenang dan antikecemasan');
+INSERT INTO obat (obat_id, nama_obat, deskripsi) VALUES
+(1, 'Paracetamol', 'Obat penurun demam dan pereda nyeri'),
+(2, 'Ibuprofen', 'Obat anti-inflamasi nonsteroid'),
+(3, 'Amoxicillin', 'Antibiotik untuk infeksi bakteri'),
+(4, 'Ranitidine', 'Obat untuk gangguan pencernaan'),
+(5, 'Cetirizine', 'Antihistamin untuk alergi'),
+(6, 'Salbutamol', 'Obat untuk asma'),
+(7, 'Metformin', 'Obat untuk diabetes'),
+(8, 'Atorvastatin', 'Obat untuk kolesterol tinggi'),
+(9, 'Omeprazole', 'Obat untuk tukak lambung'),
+(10, 'Amlodipine', 'Obat untuk tekanan darah tinggi'),
+(11, 'Ciprofloxacin', 'Antibiotik untuk infeksi bakteri'),
+(12, 'Levothyroxine', 'Obat untuk hipotiroidisme');
+
+INSERT INTO riwayat (riwayat_id, NIK, rumahsakit_id, tenagamedis_id, obat_id, tanggal_riwayat, jenis_layanan, keterangan_penyakit)
+VALUES
+(3, '3456789012', 3, 103, 1, '2024-05-03', 'Operasi', 'Patah tulang'),
+(4, '4567890123', 4, 104, 2, '2024-05-04', 'Pemeriksaan', 'Sakit perut'),
+(5, '5678901234', 5, 105, 2, '2024-05-05', 'Rawat Inap', 'Luka bakar'),
+(6, '1234567890', 1, 101, 2, '2024-05-01', 'Operasi', 'Flu'),
+(7, '1234', 4, 104, 2, '2024-05-04', 'Pemeriksaan', 'Sakit perut'),
+(8, '1234567890', 5, 105, 2, '2024-05-05', 'Rawat Inap', 'Luka bakar'),
+(9, '1234567890', 4, 104, 2, '2024-05-04', 'Pemeriksaan', 'Sakit perut'),
+(10, '1234567890', 5, 105, 2, '2024-05-05', 'Rawat Inap', 'Luka bakar'),
+(11, '1234567890', 1, 101, 2, '2024-05-01', 'Rawat Inap', 'Flu');
+
+INSERT INTO riwayat (riwayat_id, NIK, rumahsakit_id, tenagamedis_id, obat_id, tanggal_riwayat, jenis_layanan, keterangan_penyakit)
+VALUES
+(3001, '1432', 3, 103, 3, '2024-05-03', 'Operasi', 'Patah tulang'),
+(3002, '1432', 4, 104, 3, '2024-05-04', 'Pemeriksaan', 'Sakit perut'),
+(3003, '1432', 5, 105, 3, '2024-05-05', 'Rawat Inap', 'Luka bakar'),
+(3004, '1432', 1, 101, 3, '2024-05-01', 'Operasi', 'Flu'),
+(3005, '1432', 4, 104, 3, '2024-05-04', 'Pemeriksaan', 'Sakit perut'),
+(3006, '1432', 5, 105, 3, '2024-05-05', 'Rawat Inap', 'Luka bakar'),
+(3010, '1432', 4, 104, 3, '2024-05-04', 'Pemeriksaan', 'Sakit perut'),
+(3008, '1432', 5, 105, 3, '2024-05-05', 'Rawat Inap', 'Luka bakar'),
+(3009, '1432', 1, 101, 3, '2024-05-01', 'Rawat Inap', 'Flu');
+
+INSERT INTO riwayat (riwayat_id, NIK, rumahsakit_id, tenagamedis_id, obat_id, tanggal_riwayat, jenis_layanan, keterangan_penyakit)
+VALUES
+(1010, '1234567890', 502522, 103, 4, '2024-05-03', 'Operasi', 'Patah tulang'),
+(2008, '1234567890', 502522, 104, 4, '2024-05-04', 'Pemeriksaan', 'Sakit perut'),
+(3007, '1234567890', 502522, 105, 4, '2024-05-05', 'Rawat Inap', 'Luka bakar'),
+(4006, '1234567890', 502522, 101, 4, '2024-05-01', 'Operasi', 'Flu'),
+(5005, '1234567890', 502522, 104, 4, '2024-05-04', 'Pemeriksaan', 'Sakit perut'),
+(1004, '3456789012', 502522, 105, 4, '2024-05-05', 'Rawat Inap', 'Luka bakar'),
+(1003, '3456789012', 502522, 104, 4, '2024-05-04', 'Pemeriksaan', 'Sakit perut'),
+(1002, '3456789012', 502522, 105, 4, '2024-05-05', 'Rawat Inap', 'Luka bakar'),
+(1001, '3456789012', 502522, 101, 4, '2024-05-01', 'Rawat Inap', 'Flu');
+
+INSERT INTO riwayat (riwayat_id, NIK, rumahsakit_id, tenagamedis_id, obat_id, tanggal_riwayat, jenis_layanan, keterangan_penyakit)
+VALUES
+(101, '3456789012', 3, 115, 5, '2024-05-03', 'Operasi', 'Patah tulang');
+
+INSERT INTO riwayat (riwayat_id, NIK, rumahsakit_id, tenagamedis_id, obat_id, tanggal_riwayat, jenis_layanan, keterangan_penyakit)
+VALUES
+(102, '3456789012', 3, 115, 6, '2024-05-03', 'Operasi', 'Patah tulang'),
+(103, '1234567890', 3, 115, 6, '2024-05-04', 'Konsultasi', 'Demam'),
+(104, '1234567890', 3, 115, 6, '2024-05-05', 'Pemeriksaan', 'Flu'),
+(105, '3456789012', 3, 115, 6, '2024-05-06', 'Operasi Darurat', 'Kecelakaan'),
+(106, '1234', 3, 115, 6, '2024-05-07', 'Operasi', 'Patah tangan'),
+(107, '3456789012', 3, 115, 6, '2024-05-08', 'Rawat Inap', 'Infeksi'),
+(108, '1234', 3, 115, 6, '2024-05-09', 'Konsultasi', 'Sakit perut');
+
+INSERT INTO riwayat (riwayat_id, NIK, rumahsakit_id, tenagamedis_id, obat_id, tanggal_riwayat, jenis_layanan, keterangan_penyakit)
+VALUES
+(31, '1345', 1, 101, 7, '2024-05-01', 'Rawat Inap', 'Flu'),
+(30, '1345', 1, 101, 7, '2024-05-12', 'Rawat Inap', 'Flu'),
+(32, '1345', 2, 102, 7, '2024-05-15', 'Pemeriksaan', 'Demam'),
+(33, '1345', 2, 102, 7, '2024-05-20', 'Pemeriksaan', 'Demam'),
+(34, '1345', 1, 101, 7, '2024-05-21', 'Rawat Inap', 'Flu'),
+(35, '1345', 2, 102, 7, '2024-05-29', 'Pemeriksaan', 'Demam'),
+(36, '1345', 1, 101, 7, '2024-05-01', 'Rawat Inap', 'Flu'),
+(37, '1345', 1, 101, 8, '2024-05-12', 'Rawat Inap', 'Flu'),
+(38, '1345', 2, 102, 8, '2024-05-15', 'Pemeriksaan', 'Demam'),
+(39, '1345', 2, 102, 9, '2024-05-20', 'Pemeriksaan', 'Demam'),
+(40, '1345', 1, 101, 9, '2024-05-21', 'Rawat Inap', 'Flu'),
+(41, '1345', 2, 102, 9, '2024-05-29', 'Pemeriksaan', 'Demam');
+
+
 
 	-- DELETE FROM pasien; 
 
-	CREATE INDEX idx_obat_nama_obat ON Obat (Nama_Obat);
+
 
 	CREATE INDEX idx_tm_nama_tm ON Tenaga_Medis (Nama_TenagaMedis);
 	CREATE INDEX idx_tm_spesialisasi ON Tenaga_Medis (Spesialisasi);
@@ -296,12 +332,16 @@ INSERT INTO riwayat (riwayat_id, NIK, rumahsakit_id, tenagamedis_id, tanggal_riw
 	CREATE INDEX idx_riwayat_jl ON Riwayat (Jenis_Layanan);
 
 	SELECT * FROM pasien;
-	SELECT * FROM tenaga_medis;
+	SELECT spesialisasi FROM tenaga_medis;
 	SELECT * FROM riwayat;
     
+SELECT *
+FROM pasien P
+JOIN riwayat R ON P.NIK = R.NIK
+WHERE R.tenagamedis_id = 115;
 
 
-	SELECT * FROM Email_log;
+	SELECT * FROM riwayat WHERE NIK = 1234;
 
 	SELECT Nama_TenagaMedis FROM Tenaga_Medis;
 -- 	SELECT Spesialisasi FROM Tenaga_Medis;
@@ -319,3 +359,8 @@ INSERT INTO riwayat (riwayat_id, NIK, rumahsakit_id, tenagamedis_id, tanggal_riw
 -- 	SELECT Nama_Pasien FROM Pasien;
 
 -- 	EXPLAIN SELECT Nama_Pasien FROM Pasien;
+
+
+
+SELECT * FROM pasien;
+SELECT * FROM riwayat WHERE NIK = 1234;
