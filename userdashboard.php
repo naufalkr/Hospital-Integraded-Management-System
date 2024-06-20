@@ -153,7 +153,7 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
           </button>
         </div>
         <!-- Medical reports -->
-        <div id="medical-reports-content" class="tab-content active overflow-y-scroll h-full custom-scrollbar px-2">
+        <div id="medical-reports-content" class="tab-content active overflow-y-scroll h-[77vh] custom-scrollbar px-2">
           <?php foreach ($reports as $report) : ?>
             <div class="card-container">
               <div class="card">
