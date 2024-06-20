@@ -15,7 +15,7 @@ if (!$user) {
 }
 
 // Fetch medical reports based on NIK
-$query = $pdo->prepare("SELECT * FROM riwayat WHERE NIK = :nik");
+$query = $pdo->prepare("SELECT * FROM riwayat WHERE NIK = :nik ORDER BY tanggal_riwayat");
 $query->execute(['nik' => $nik]);
 $reports = $query->fetchAll(PDO::FETCH_ASSOC);
 

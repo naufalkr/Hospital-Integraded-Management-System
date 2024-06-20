@@ -115,11 +115,13 @@
       const tenagaMedis = `
         <div class="flex flex-row justify-between">
           <h1 class="text-black">Daftar Tenaga Medis <?php echo htmlspecialchars($rumah_sakit['nama_rumahsakit']); ?></h1>
-          <button class="font-bold text-black rounded p-2 hover:bg-red-500 hover:text-white right-6" onclick="switchContent()">
-            Keluar
-          </button>
+          <div>
+            <input type="text" id="searchBar" class="search-bar" onkeyup="filterDoctors()" placeholder="Search for doctors..">
+            <button class="font-bold text-black rounded p-2 hover:bg-red-500 hover:text-white right-6" onclick="switchContent()">
+              Keluar
+            </button>
+          </div>  
         </div>
-        <input type="text" id="searchBar" class="search-bar" onkeyup="filterDoctors()" placeholder="Search for doctors..">
         <div class="h-[80vh] overflow-y-scroll rounded-lg">
           <ul id="doctorList">
             <?php foreach ($dokter_rs as $doks) : ?>
@@ -141,6 +143,7 @@
         <div class="flex justify-center my-4">
           <a href="../index.php" class="p-2 rounded-lg bg-gray-400 hover:bg-teal-500 text-white">Tambah Tenaga Medis</a>
         </div>
+          
       `;
 
       function filterDoctors() {
@@ -160,11 +163,13 @@
       const pasien = `
         <div class="flex flex-row justify-between">
           <h1 class="text-black">Daftar Pasien <?php echo htmlspecialchars($rumah_sakit['nama_rumahsakit']); ?></h1>
-          <button class="font-bold text-black rounded p-2 hover:bg-red-500 hover:text-white right-6" onclick="switchContent()">
-            Keluar
-          </button>
+          <div>
+            <input type="text" id="searchBarPasien" class="search-bar" onkeyup="filterPatients()" placeholder="Search for patients..">
+            <button class="font-bold text-black rounded p-2 hover:bg-red-500 hover:text-white right-6" onclick="switchContent()">
+              Keluar
+            </button>
+          </div>
         </div>
-        <input type="text" id="searchBarPasien" class="search-bar" onkeyup="filterPatients()" placeholder="Search for patients..">
         <div class="h-[80vh] overflow-y-scroll rounded-lg">
           <ul id="patientList">
             <?php foreach ($patients as $patient) : ?>
@@ -182,9 +187,6 @@
               </li>
             <?php endforeach; ?>
           </ul>
-        </div>
-        <div class="flex justify-center my-4">
-          <a href="../index.php" class="p-2 rounded-lg bg-gray-400 hover:bg-teal-500 text-white">Tambah Pasien</a>
         </div>
       `;
         

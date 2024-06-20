@@ -5,7 +5,7 @@ if (isset($_GET['NIK'])) {
     $NIK = $_GET['NIK'];
 
     // Query untuk mengambil pasien yang terkait dengan dokter
-    $query = $pdo->prepare("SELECT * FROM riwayat R WHERE NIK = :NIK");
+    $query = $pdo->prepare("SELECT * FROM riwayat R WHERE NIK = :NIK ORDER BY tanggal_riwayat");
     $query->execute(['NIK' => $NIK]);
     $patients = $query->fetchAll(PDO::FETCH_ASSOC);
 
