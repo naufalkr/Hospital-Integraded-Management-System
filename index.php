@@ -7,7 +7,7 @@ require_once 'includes/signup_viewinc.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
     <title>Index</title>
     <!-- Poppins Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
