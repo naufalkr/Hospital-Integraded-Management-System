@@ -19,6 +19,18 @@ $query = $pdo->prepare("SELECT * FROM riwayat WHERE NIK = :nik ORDER BY tanggal_
 $query->execute(['nik' => $nik]);
 $reports = $query->fetchAll(PDO::FETCH_ASSOC);
 
+
+// Menyiapkan dan menjalankan query untuk mengecek log trigger
+$query = $pdo->prepare("SELECT * FROM email_log WHERE NIK = :nik");
+$query->execute(['nik' => $nik]);
+$email_log = $query->fetchAll(PDO::FETCH_ASSOC);
+
+if (count($email_log) > 0) {
+  // Hapus log untuk menghindari alert berulang
+    $delete_sql = "DELETE FROM email_log";
+    $pdo->exec($delete_sql);
+} 
+
 // // Ambil id dari parameter URL
 // $reportId = $_GET['id'];
 
@@ -62,7 +74,41 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
 
 
 <body>
-  <!-- Header -->
+
+<body>
+  <!-- Modal structure -->
+  <div id="alertModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">
+      <h2 class="text-lg font-semibold mb-4">Notification</h2>
+      <p>Riwayat baru telah ditambahkan</p>
+      <div class="mt-4 text-right">
+        <button id="closeModal" class="bg-teal-500 text-white px-4 py-2 rounded-lg">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Your existing HTML content -->
+
+  <!-- JavaScript to handle the modal -->
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      const modal = document.getElementById('alertModal');
+      const closeModal = document.getElementById('closeModal');
+
+      // Show the modal if it was triggered
+      <?php if (count($email_log) > 0): ?>
+      modal.classList.remove('hidden');
+      <?php endif; ?>
+
+      // Close the modal when the OK button is clicked
+      closeModal.addEventListener('click', () => {
+        modal.classList.add('hidden');
+      });
+    });
+  </script>
+
+
+<!-- Header -->
   <header class="bg-cyan-950">
     <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
       <div class="flex lg:flex-1">
@@ -179,7 +225,6 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
                       ?>
                       <p class="dr_name"><?php echo $tm_info['nama_tenagamedis']; ?></p>
                     </div>
-                    <span class="status">Berhasil</span>
                     <button class="icon-button open-modal-btn" id="open-modal-btn" data-id="<?php echo $report['riwayat_id']; ?>">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon">
                         <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
@@ -273,6 +318,7 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
       </div>
     </div>
   </div>
+
 
 
   <!-- JS -->

@@ -5,7 +5,7 @@ if (isset($_GET['tenagamedis_id'])) {
     $tenagamedis_id = $_GET['tenagamedis_id'];
 
     // Query untuk mengambil pasien yang terkait dengan dokter
-    $query = $pdo->prepare("SELECT * FROM pasien P JOIN riwayat R ON P.NIK = R.NIK WHERE R.tenagamedis_id = :tenagamedis_id");
+    $query = $pdo->prepare("SELECT * FROM pasien P JOIN riwayat R ON P.NIK = R.NIK WHERE R.tenagamedis_id = :tenagamedis_id ORDER BY nama_pasien");
     $query->execute(['tenagamedis_id' => $tenagamedis_id]);
     $patients = $query->fetchAll(PDO::FETCH_ASSOC);
 

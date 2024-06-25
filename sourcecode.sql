@@ -1,6 +1,6 @@
-	create database if not exists db68;
+	create database if not exists db72;
 
-	use db68;
+	use db72;
 
 		create table pasien
 		(
@@ -169,7 +169,7 @@ DELIMITER ;
 	-- Insert data ke dalam tabel pasien
 	INSERT INTO pasien (NIK, password, email, usertype, nama_pasien, Tanggal_Lahir, alamat, tinggi, berat_badan, golongan_darah, alergi, no_telepon_pasien, jenis_kelamin) 
 	VALUES 
-	('1432', '$2y$12$gTcfD83ekLjc6BdJuHlHYuDKTaDjNy38p2isFH7CBhndR/P8e96AC', 'pasien1@example.com', 'pasien', 'John Doe', '1985-01-15', 'Alamat Pasien 1', 175, 70, 'O', 'Debu', '081234567890', 'Laki-laki'),
+	('1432', '$2y$12$gTcfD83ekLjc6BdJuHlHYuDKTaDjNy38p2isFH7CBhndR/P8e96AC', 'pasien1@example.com', 'pasien', 'John Doe', '2020-01-15', 'Alamat Pasien 1', 175, 70, 'O', 'Debu', '081234567890', 'Laki-laki'),
     ('1234', '$2y$12$gTcfD83ekLjc6BdJuHlHYuDKTaDjNy38p2isFH7CBhndR/P8e96AC', 'pasien1@example.com', 'pasien', 'John Doe', '1985-01-15', 'Alamat Pasien 1', 175, 70, 'O', 'Debu', '081234567890', 'Laki-laki'),
     ('1345', 'password123', 'pasien1@example.com', 'pasien', 'John Doe', '1985-01-15', 'Alamat Pasien 1', 175, 70, 'O', 'Debu', '081234567890', 'Laki-laki'),
     ('12346', 'password123', 'pasien1@example.com', 'pasien', 'John Doe', '1985-01-15', 'Alamat Pasien 1', 175, 70, 'O', 'Debu', '081234567890', 'Laki-laki'),
@@ -250,8 +250,7 @@ INSERT INTO obat (obat_id, nama_obat, deskripsi) VALUES
 (12, 'Levothyroxine', 'Obat untuk hipotiroidisme');
 
 INSERT INTO riwayat (riwayat_id, NIK, rumahsakit_id, tenagamedis_id, obat_id, tanggal_riwayat, jenis_layanan, keterangan_penyakit)
-VALUES
-(3, '3456789012', 3, 103, 1, '2024-05-03', 'Operasi', 'Patah tulang'),
+VALUES-- 
 (4, '4567890123', 4, 104, 2, '2024-05-04', 'Pemeriksaan', 'Sakit perut'),
 (5, '5678901234', 5, 105, 2, '2024-05-05', 'Rawat Inap', 'Luka bakar'),
 (6, '1234567890', 1, 101, 2, '2024-05-01', 'Operasi', 'Flu'),
@@ -315,7 +314,11 @@ VALUES
 (41, '1345', 2, 102, 9, '2024-05-29', 'Pemeriksaan', 'Demam');
 
 
-
+INSERT INTO riwayat (riwayat_id, NIK, rumahsakit_id, tenagamedis_id, obat_id, tanggal_riwayat, jenis_layanan, keterangan_penyakit)
+VALUES
+(42, '1345', 1, 101, 7, '2024-05-01', 'Rawat Inap', 'Flu'),
+(43, '1345', 1, 101, 7, '2024-05-12', 'Rawat Inap', 'Flu'),
+(44, '1345', 2, 102, 7, '2024-05-15', 'Pemeriksaan', 'Demam');
 	-- DELETE FROM pasien; 
 
 
@@ -330,10 +333,14 @@ VALUES
 	CREATE INDEX idx_ps_alamat ON Pasien (Alamat);
 
 	CREATE INDEX idx_riwayat_jl ON Riwayat (Jenis_Layanan);
+	CREATE INDEX idx_riwayat_tanggal ON Riwayat (tanggal_riwayat);
+    
+    
+	CREATE INDEX idx_emaillog_wk ON email_log (waktu_kirim);
 
 	SELECT * FROM pasien;
 	SELECT spesialisasi FROM tenaga_medis;
-	SELECT * FROM riwayat;
+	SELECT tanggal_riwayat FROM riwayat;
     
 SELECT *
 FROM pasien P
@@ -361,6 +368,6 @@ WHERE R.tenagamedis_id = 115;
 -- 	EXPLAIN SELECT Nama_Pasien FROM Pasien;
 
 
-
 SELECT * FROM pasien;
+SELECT * FROM email_log;
 SELECT * FROM riwayat WHERE NIK = 1234;

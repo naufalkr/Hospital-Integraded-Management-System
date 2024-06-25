@@ -27,6 +27,7 @@
         FROM pasien p
         JOIN riwayat r ON p.NIK = r.NIK
         WHERE r.rumahsakit_id = :rumahsakit_id
+        ORDER BY nama_pasien
     ";
 
     $pasien = $pdo->prepare($query);

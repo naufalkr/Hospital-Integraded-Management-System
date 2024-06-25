@@ -167,7 +167,6 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                     <p class="dr_name"><?php echo $tm_info['nama_tenagamedis']; ?></p>
                   </div>
-                  <span class="status">Berhasil</span>
                   <button class="icon-button open-modal-btn" id="open-modal-btn" data-id="<?php echo $report['riwayat_id']; ?>">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon">
                       <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
