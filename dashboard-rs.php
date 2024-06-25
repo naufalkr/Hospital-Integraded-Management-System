@@ -2,7 +2,9 @@
 include_once 'includes/config_sessioninc.php';
 include_once 'includes/login_viewinc.php';
 include_once 'includes/dbhinc.php'; // Include the database connection file
-$rumahsakit_id = '502522';
+// $rumahsakit_id = '502522';
+$rumahsakit_id = $_SESSION["rumahsakit_id"];
+
 
 // Prepare the query to fetch data from rumah_sakit where rumahsakit_id = :rumahsakit_id
 $query = $pdo->prepare("SELECT * FROM Rumah_Sakit WHERE rumahsakit_id = :rumahsakit_id");
@@ -140,7 +142,7 @@ $patients = $pasien->fetchAll(PDO::FETCH_ASSOC);
               <i class="fa-solid fa-chevron-left"></i>
             </button>
             <div class="space-x-4">
-              <a href="../index.php" class="py-1 px-4 text-m font-regular rounded-full bg-teal-500 text-white">Add</a>
+              <a href="signup_tenagamedis.php" class="py-1 px-4 text-m font-regular rounded-full bg-teal-500 text-white">Add</a>
               <input type="text" id="searchBar" onkeyup="filterDoctors()" placeholder="Search for doctors.." class="search-bar py-1 rounded-full bg-white text-gray-900 outline-none pl-6" />
             </div>
         </div>
@@ -188,7 +190,6 @@ $patients = $pasien->fetchAll(PDO::FETCH_ASSOC);
               <i class="fa-solid fa-chevron-left"></i>
             </button>
             <div class="space-x-4">
-              <a href="../index.php" class="py-1 px-4 text-m font-regular rounded-full bg-teal-500 text-white">Add</a>
               <input type="text" id="searchBarPasien" onkeyup="filterPatients()" placeholder="Search for patients.." class="search-bar py-1 rounded-full bg-white text-gray-900 outline-none pl-6" />
             </div>
         </div>
@@ -473,6 +474,10 @@ $patients = $pasien->fetchAll(PDO::FETCH_ASSOC);
                         <div class="flex flex-row justify-between items-center">
                             <p for="jenisLayanan">Jenis Layanan:</p>
                             <p id="jenisLayanan">${patient.jenis_layanan}</p>
+                        </div>
+                          <div class="flex flex-row justify-between items-center">
+                            <p for="jenisLayanan">ID Obat:</p>
+                            <p id="jenisLayanan">${patient.obat_id}</p>
                         </div>
                         <div class="flex flex-row justify-between items-center">
                             <p for="penyakit">Keterangan:</p>

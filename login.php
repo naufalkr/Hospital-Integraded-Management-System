@@ -49,6 +49,7 @@ require_once "includes/login_viewinc.php";
                     <select name="role" id="role" required>
                         <option value="tenaga_medis">Tenaga Medis</option>
                         <option value="pasien">Pasien</option>
+                        <option value="rumah_sakit">Rumah Sakit</option>
                     </select>
 
 

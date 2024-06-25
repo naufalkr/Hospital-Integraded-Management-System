@@ -307,6 +307,7 @@ if (count($email_log) > 0) {
             </div>
             <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
               <dt class="font-medium text-gray-900">Medicine</dt>
+              <dd class="text-gray-700 sm:col-span-2 medicine"></dd>
             </div>
 
             <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
@@ -322,7 +323,7 @@ if (count($email_log) > 0) {
 
 
   <!-- JS -->
-  <script src="user/indexuser.js"></script>
+  <script src="js/user.js"></script>
 </body>
 
 </html>

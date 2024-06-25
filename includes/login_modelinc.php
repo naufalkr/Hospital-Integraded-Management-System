@@ -18,3 +18,12 @@ function get_user_tenagamedis(object $pdo,string $tenagamedis_id,string $role){
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     return $result;
 }
+
+function get_user_rs(object $pdo,string $rumahsakit_id,string $role){
+    $query = "SELECT * FROM {$role} WHERE rumahsakit_id = :rumahsakit_id";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(":rumahsakit_id", $rumahsakit_id);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result;
+}
