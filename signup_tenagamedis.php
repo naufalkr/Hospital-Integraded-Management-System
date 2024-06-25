@@ -1,6 +1,18 @@
 <?php
 require_once 'includes/config_sessioninc.php';
 require_once 'includes/signup_viewinc.php';
+
+// Fetch the `rumahsakit_id` from the session
+if(isset($_SESSION["rumahsakit_id"])) {
+    $rumahsakit_id = $_SESSION["rumahsakit_id"];
+} else {
+    // Handle the case where the session variable is not set
+    // This could be an error message or a redirection to another page
+    echo "Error: Rumah Sakit ID not set in session.";
+    exit;
+}
+?>
+
 ?>
 
 <!DOCTYPE html>
@@ -24,6 +36,7 @@ require_once 'includes/signup_viewinc.php';
                 <h1 class="register-header">REGISTER</h1>
                 <form action="includes/signupinc.php" method="post" class="form-container">
                     <input type="text" name="tenagamedis_id" placeholder="ID" required>
+                    <input type="hidden" name="rumahsakit_id" value="<?php echo htmlspecialchars($rumahsakit_id); ?>" required>
                     <input type="password" name="password" placeholder="Password" required>
                     <input type="text" name="email" placeholder="E-mail" required>
                     <input type="text" name="nama_tenagamedis" placeholder="Nama" required>

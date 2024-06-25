@@ -70,8 +70,8 @@ function set_user_pasien(object $pdo, string $NIK, string $password, string $ema
     $stmt->execute();
 }
 
-function set_user_tenagamedis(object $pdo, int $tenagamedis_id, string $password, string $email, string $nama_tenagamedis, string $spesialisasi, string $jenis_kelamin, string $no_telepon_tenagamedis){
-    $query = "INSERT INTO tenaga_medis (tenagamedis_id, password, email, nama_tenagamedis, spesialisasi, jenis_kelamin, no_telepon_tenagamedis) VALUES (:tenagamedis_id, :password, :email, :nama_tenagamedis, :spesialisasi, :jenis_kelamin, :no_telepon_tenagamedis)";
+function set_user_tenagamedis(object $pdo, int $tenagamedis_id, int $rumahsakit_id,string $password, string $email, string $nama_tenagamedis, string $spesialisasi, string $jenis_kelamin, string $no_telepon_tenagamedis){
+    $query = "INSERT INTO tenaga_medis (tenagamedis_id, rumahsakit_id, password, email, nama_tenagamedis, spesialisasi, jenis_kelamin, no_telepon_tenagamedis) VALUES (:tenagamedis_id, :rumahsakit_id, :password, :email, :nama_tenagamedis, :spesialisasi, :jenis_kelamin, :no_telepon_tenagamedis)";
     $stmt = $pdo->prepare($query);
 
     $options = [
@@ -80,6 +80,7 @@ function set_user_tenagamedis(object $pdo, int $tenagamedis_id, string $password
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT, $options);
 
     $stmt->bindParam(":tenagamedis_id", $tenagamedis_id);
+    $stmt->bindParam(":rumahsakit_id", $rumahsakit_id);
     $stmt->bindParam(":password", $hashedPassword);
     $stmt->bindParam(":email", $email);
     $stmt->bindParam(":nama_tenagamedis", $nama_tenagamedis);

@@ -10,6 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Check if the form is from signup_tenagamedis.php
     if (isset($_POST["tenagamedis_id"])) {
         $tenagamedis_id = $_POST["tenagamedis_id"];
+        $rumahsakit_id = $_POST['rumahsakit_id'];
         $password = $_POST["password"];
         $email = $_POST["email"];
         $nama_tenagamedis = $_POST["nama_tenagamedis"];
@@ -42,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             die();
         }
 
-        create_user_tenagamedis($pdo, $tenagamedis_id, $password, $email, $nama_tenagamedis, $spesialisasi, $jenis_kelamin, $no_telepon_tenagamedis);
+        create_user_tenagamedis($pdo, $tenagamedis_id, $rumahsakit_id, $password, $email, $nama_tenagamedis, $spesialisasi, $jenis_kelamin, $no_telepon_tenagamedis);
 
         header("Location: ../index.php?signup=success");
 

@@ -52,7 +52,7 @@ function create_user_pasien(object $pdo, string $NIK,string $password,string $em
 //     $stmt->bindParam(":golongan_darah", $golongan_darah);
 //     $stmt->bindParam(":alergi", $alergi);
 
-function create_user_tenagamedis(object $pdo, int $tenagamedis_id,string $password,string $email,string $nama_tenagamedis,string $spesialisasi,string $jenis_kelamin,string $no_telepon_tenagamedis){
+function create_user_tenagamedis(object $pdo, int $tenagamedis_id, int $rumahsakit_id,string $password,string $email,string $nama_tenagamedis,string $spesialisasi,string $jenis_kelamin,string $no_telepon_tenagamedis){
     // set_user($pdo, $NIK, $password, $email);
-    set_user_tenagamedis($pdo, $tenagamedis_id, $password, $email, $nama_tenagamedis, $spesialisasi, $jenis_kelamin, $no_telepon_tenagamedis);
+    set_user_tenagamedis($pdo, $tenagamedis_id, $rumahsakit_id, $password, $email, $nama_tenagamedis, $spesialisasi, $jenis_kelamin, $no_telepon_tenagamedis);
 }
