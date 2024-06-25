@@ -74,7 +74,7 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
 
 <body class="bg-[#f4f5f8] h-[100vh]">
   <!-- Header -->
-  <div class="gradient-bg p-8 flex justify-between items-center text-white">
+  <div class="bg-cyan-950 p-8 flex justify-between items-center text-white">
     <div class="flex items-center">
       <div>
         <img src="https://via.placeholder.com/100" alt="Profile Picture" class="rounded-full text-white h-20 w-20 flex items-center justify-center mr-4" />
@@ -94,7 +94,7 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
         </button>
       </form>
       <form action="includes/logoutinc.php">
-        <button class="ml-4 p-3 bg-gray-800 rounded-full text-white text-sm">
+        <button class="ml-4 p-3 bg-teal-500 rounded-full text-white text-sm">
           Logout
         </button>
       </form>
@@ -128,7 +128,7 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
             <div class="text-gray-500">90 kg</div>
             <div class="font-semibold">Email:</div>
             <div class="text-gray-500"><?php echo htmlspecialchars($patient['email']); ?></div>
-            <div class="font-semibold">Last Check Up:</div>
+            <!-- <div class="font-semibold">Last Check Up:</div> -->
           </div>
         </div>
       <?php else : ?>
@@ -148,7 +148,7 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
               <div class="card-minimized">
                 <div class="card-info">
                   <p class="date"><?php echo date('j F Y', strtotime($report['tanggal_riwayat'])); ?></p>
-                  <p class="title"><?php echo $report['jenis_layanan']; ?></p>
+                  <p class="title text-cyan-950"><?php echo $report['jenis_layanan']; ?></p>
                 </div>
                 <div class="card-attribute">
                   <div class="pj-info">
