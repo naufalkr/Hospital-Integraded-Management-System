@@ -137,7 +137,7 @@ if (count($email_log) > 0) {
   <div class="flex">
     <div class="w-1/3 bg-white">
       <div class="flex items-center mb-4 p-10">
-        <img src="" alt="Profile Picture" class="bg-teal-500 text-white h-52 w-40 flex items-center justify-center rounded-lg mr-4" />
+        <img src="<?php echo htmlspecialchars($user['profile_picture']); ?>" alt="Profile Picture" class="bg-teal-500 text-white h-52 w-48 flex items-center justify-center rounded-lg mr-4" />
         <div>
           <!-- Nama Umur -->
           <h2 class="text-2xl font-semibold text-cyan-950"><?php echo htmlspecialchars($user['nama_pasien']); ?></h2>
@@ -151,6 +151,16 @@ if (count($email_log) > 0) {
           <div class="flex justify-between">
             <span class="font-semibold text-cyan-950 text-sm">NIK:</span>
             <span class="text-gray-500"><?php echo htmlspecialchars($user['NIK']); ?></span>
+            <!-- <span class="text-gray-500"></span> -->
+          </div>
+          <div class="flex justify-between">
+            <span class="font-semibold text-cyan-950 text-sm">Email:</span>
+            <span class="text-gray-500"><?php echo htmlspecialchars($user['email']); ?></span>
+            <!-- <span class="text-gray-500"></span> -->
+          </div>
+          <div class="flex justify-between">
+            <span class="font-semibold text-cyan-950 text-sm">Nomor Telepon:</span>
+            <span class="text-gray-500"><?php echo htmlspecialchars($user['no_telepon_pasien']); ?></span>
             <!-- <span class="text-gray-500"></span> -->
           </div>
           <div class="flex justify-between">
@@ -180,8 +190,8 @@ if (count($email_log) > 0) {
             <span class="text-gray-500"><?php echo htmlspecialchars($user['berat_badan']); ?></span>
           </div>
           <div class="flex justify-between">
-            <span class="font-semibold text-cyan-950 text-sm">Email:</span>
-            <span class="text-gray-500"><?php echo htmlspecialchars($user['email']); ?></span>
+            <span class="font-semibold text-cyan-950 text-sm">Kategori Usia:</span>
+            <span class="text-gray-500"><?php echo htmlspecialchars($user['Kategori']); ?></span>
             <!-- <span class="text-gray-500"></span> -->
           </div>
         </div>
@@ -323,7 +333,7 @@ if (count($email_log) > 0) {
 
 
   <!-- JS -->
-  <script src="js/user.js"></script>
+  <script src="user/js_user.js"></script>
 </body>
 
 </html>

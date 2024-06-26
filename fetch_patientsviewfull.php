@@ -1,12 +1,12 @@
 <?php
 include_once 'includes/dbhinc.php'; // Sesuaikan dengan file koneksi database Anda
 
-if (isset($_GET['NIK'])) {
-    $NIK = $_GET['NIK'];
+if (isset($_GET['riwayat_id'])) {
+    $riwayat_id = $_GET['riwayat_id'];
 
     // Query untuk mengambil pasien yang terkait dengan dokter
-    $query = $pdo->prepare("SELECT * FROM riwayat WHERE NIK = :NIK");
-    $query->execute(['NIK' => $NIK]);
+    $query = $pdo->prepare("SELECT * FROM riwayat WHERE riwayat_id = :riwayat_id");
+    $query->execute(['riwayat_id' => $riwayat_id]);
     $patients = $query->fetchAll(PDO::FETCH_ASSOC);
     
     

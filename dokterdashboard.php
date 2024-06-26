@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nik'])) {
 }
 
 // Fetch medical reports based on NIK
-$query = $pdo->prepare("SELECT * FROM riwayat WHERE NIK = :nik");
+$query = $pdo->prepare("SELECT * FROM riwayat WHERE NIK = :nik ORDER BY tanggal_riwayat");
 $query->execute(['nik' => $nik]);
 $reports = $query->fetchAll(PDO::FETCH_ASSOC);
 
@@ -114,20 +114,25 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
           <div class="grid grid-cols-2 gap-2">
             <div class="font-semibold">NIK:</div>
             <div class="text-gray-500"><?php echo htmlspecialchars($patient['NIK']); ?></div>
+            <div class="font-semibold">Email:</div>
+            <div class="text-gray-500"><?php echo htmlspecialchars($patient['email']); ?></div>
+            <div class="font-semibold">Nomor Telepon:</div>
+            <div class="text-gray-500"><?php echo htmlspecialchars($patient['no_telepon_pasien']); ?></div>
             <div class="font-semibold">Gender:</div>
             <div class="text-gray-500"><?php echo htmlspecialchars($patient['jenis_kelamin']); ?></div>
             <div class="font-semibold">Address:</div>
             <div class="text-gray-500"><?php echo htmlspecialchars($patient['alamat']); ?></div>
             <div class="font-semibold">Blood Type:</div>
-            <div class="text-gray-500">O+</div>
+            <div class="text-gray-500"><?php echo htmlspecialchars($patient['golongan_darah']); ?></div>
             <div class="font-semibold">Allergies:</div>
-            <div class="text-gray-500">Peanuts</div>
+            <div class="text-gray-500"><?php echo htmlspecialchars($patient['alergi']); ?></div>
             <div class="font-semibold">Height:</div>
-            <div class="text-gray-500">173 cm</div>
+            <div class="text-gray-500"><?php echo htmlspecialchars($patient['tinggi']); ?></div>
             <div class="font-semibold">Weight:</div>
-            <div class="text-gray-500">90 kg</div>
-            <div class="font-semibold">Email:</div>
-            <div class="text-gray-500"><?php echo htmlspecialchars($patient['email']); ?></div>
+            <div class="text-gray-500"><?php echo htmlspecialchars($patient['berat_badan']); ?></div>
+            <div class="font-semibold">Kategori Usia:</div>
+            <div class="text-gray-500"><?php echo htmlspecialchars($patient['Kategori']); ?></div>
+
             <!-- <div class="font-semibold">Last Check Up:</div> -->
           </div>
         </div>
@@ -208,6 +213,7 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
               <dt class="font-medium text-gray-900">Medicine</dt>
+              <dd class="text-gray-700 sm:col-span-2 medicine"></dd>
             </div>
 
             <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
@@ -220,7 +226,7 @@ $reports = $query->fetchAll(PDO::FETCH_ASSOC);
     </div>
   </div>
 
-  <script src="dokter/indexdokter.js"></script>
+  <script src="js/dokter_js.js"></script>
 </body>
 
 </html>

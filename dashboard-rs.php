@@ -16,7 +16,7 @@ if (!$rumah_sakit) {
 }
 
 // Prepare the query to fetch data from rumah_sakit where rumahsakit_id = :rumahsakit_id
-$dokter = $pdo->prepare("SELECT * FROM tenaga_medis WHERE rumahsakit_id = :rumahsakit_id ORDER BY spesialisasi");
+$dokter = $pdo->prepare("SELECT * FROM tenaga_medis WHERE rumahsakit_id = :rumahsakit_id ORDER BY tenagamedis_id");
 $dokter->execute(['rumahsakit_id' => $rumahsakit_id]);
 $dokter_rs = $dokter->fetchAll(PDO::FETCH_ASSOC);
 
@@ -25,11 +25,16 @@ if (!$dokter_rs) {
 }
 
 $query = "
-        SELECT *
-        FROM pasien p
-        JOIN riwayat r ON p.NIK = r.NIK
-        WHERE r.rumahsakit_id = :rumahsakit_id
-        ORDER BY nama_pasien
+  SELECT p.*
+  FROM (
+      SELECT DISTINCT p.NIK
+      FROM pasien p
+      JOIN riwayat r ON p.NIK = r.NIK
+      WHERE r.rumahsakit_id = :rumahsakit_id
+  ) AS distinct_nik
+  JOIN pasien p ON p.NIK = distinct_nik.NIK
+  ORDER BY p.nama_pasien;
+
     ";
 
 $pasien = $pdo->prepare($query);
@@ -153,7 +158,7 @@ $patients = $pasien->fetchAll(PDO::FETCH_ASSOC);
                 <div class="flex items-center ">
                   <img src="dashboard-rs/avatar.jpg" class="w-20 h-20 rounded-full mx-4 my-2">
                   <div>
-                    <p class="text-sm doctor-name"><?php echo htmlspecialchars($doks['nama_tenagamedis']); ?></p>
+                    <p class="text-sm doctor-name"><?php echo htmlspecialchars($doks['nama_tenagamedis']); ?> - <?php echo htmlspecialchars($doks['tenagamedis_id']); ?></p>
                     <p class="text-xs text-gray-400"><?php echo htmlspecialchars($doks['spesialisasi']); ?></p>
                   </div>
                 </div>
@@ -339,7 +344,7 @@ $patients = $pasien->fetchAll(PDO::FETCH_ASSOC);
       // Construct HTML for patient list
       let patientListHTML = `
                 <div class="flex flex-row justify-between">
-                <button class=" text-cyan-950" onclick="switchContent()">
+                <button class=" text-cyan-950" onclick="switchContent('MEDICAL STAFF')">
                 <i class="fa-solid fa-chevron-left"></i>
                 </button>
                 <h1 class="text-black">Riwayat Pasien ${namaTenagaMedis}</h1>
@@ -412,7 +417,7 @@ $patients = $pasien->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         </div>
                         <div>
-                            <button class="hover:bg-teal-500 hover:text-white hover:rounded-lg p-2 py-1 my-2 mx-4" onclick="switchContent('Detail Riwayat', '${patient.NIK}', '${patient.jenis_layanan} - ${patient.keterangan_penyakit}')">Detail</button>
+                            <button class="hover:bg-teal-500 hover:text-white hover:rounded-lg p-2 py-1 my-2 mx-4" onclick="switchContent('Detail Riwayat', '${patient.riwayat_id}', '${patient.jenis_layanan}')">Detail</button>
                         </div>
                     </li>
                 `;
@@ -423,11 +428,32 @@ $patients = $pasien->fetchAll(PDO::FETCH_ASSOC);
             `;
       content.innerHTML = patientListHTML;
     }
+    // async function fetchPatientViewFull(NIK, namaPasien) {
+    //   console.log(NIK);
+    //   console.log(namaPasien);
+      
+    //   try {
+    //     const response = await fetch(`fetch_patientsviewfull.php?NIK=${NIK}`);
+    //     const responseData = await response.text(); // Mengambil data teks dari respons
 
-    async function fetchPatientViewFull(NIK, keterangan) {
-      console.log(NIK);
+    //     // Cek apakah respons valid JSON
+    //     try {
+    //       const patient = JSON.parse(responseData);
+    //       viewPatientDetailFull(patient, namaPasien);
+    //     } catch (error) {
+    //       console.error('Error parsing JSON:', error);
+    //       throw new Error('Invalid JSON response from server');
+    //     }
+    //   } catch (error) {
+    //     console.error('Error fetching patient data:', error.message);
+    //   }
+    // }
+
+    async function fetchPatientViewFull(riwayat_id, keterangan) {
+      console.log(riwayat_id);
+      console.log(keterangan);
       try {
-        const response = await fetch(`fetch_patientsviewfull.php?NIK=${NIK}`);
+        const response = await fetch(`fetch_patientsviewfull.php?riwayat_id=${riwayat_id}`);
         const responseData = await response.text(); // Mengambil data teks dari respons
 
         // Cek apakah respons valid JSON
@@ -442,6 +468,27 @@ $patients = $pasien->fetchAll(PDO::FETCH_ASSOC);
         console.error('Error fetching patient data:', error.message);
       }
     }
+
+    // async function fetchPatientViewFull(NIK, keterangan) {
+      // console.log(NIK);
+    //   try {
+    //     const response = await fetch(`fetch_patientsviewfull.php?NIK=${NIK}`);
+    //     const responseData = await response.text(); // Mengambil data teks dari respons
+
+    //     // Cek apakah respons valid JSON
+    //     try {
+    //       const patient = JSON.parse(responseData);
+    //       viewPatientDetailFull(patient, keterangan);
+    //     } catch (error) {
+    //       console.error('Error parsing JSON:', error);
+    //       throw new Error('Invalid JSON response from server');
+    //     }
+    //   } catch (error) {
+    //     console.error('Error fetching patient data:', error.message);
+    //   }
+    // }
+
+
 
     function viewPatientDetailFull(patients, keterangan) {
       // Ambil hanya satu pasien pertama dari array patients
@@ -460,8 +507,8 @@ $patients = $pasien->fetchAll(PDO::FETCH_ASSOC);
                     <h1 class="flex justify-center my-4 text-2xl text-gray-600">Detail Riwayat</h1>
                     <form class="space-y-6 p-12 bg-white rounded-lg shadow-md text-gray-600 w-[30%]">
                         <div class="flex flex-row justify-between items-center">
-                            <p for="nik">NIK:</p>
-                            <p id="nik">${patient.NIK}</p>
+                            <p for="NIK">NIK:</p>
+                            <p id="NIK">${patient.NIK}</p>
                         </div>
                         <div class="flex flex-row justify-between items-center">
                             <p for="dokter">Dokter:</p>
@@ -490,7 +537,6 @@ $patients = $pasien->fetchAll(PDO::FETCH_ASSOC);
 
       content.innerHTML = patientDetailHTML;
     }
-
     function togglePopup() {
       document.getElementById("popup").classList.toggle("active");
     }

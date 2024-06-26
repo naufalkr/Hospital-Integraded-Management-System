@@ -39,13 +39,13 @@ require_once "includes/login_viewinc.php";
                 <?php } ?>
 
                 <form method="POST" action="includes/logininc.php">
-                    <label for="NIK">NIK:</label>
+                    <label for="NIK">NIK or ID:</label>
                     <input type="text" name="NIK" id="NIK" required>
 
                     <label for="password">Password:</label>
                     <input type="password" name="password" id="password" required>
 
-                    <label for="role">Masuk Sebagai:</label>
+                    <label for="role">Login as:</label>
                     <select name="role" id="role" required>
                         <option value="tenaga_medis">Tenaga Medis</option>
                         <option value="pasien">Pasien</option>
