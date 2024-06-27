@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     require_once 'includes/config_sessioninc.php';
 
         // Form is from signup.php (patient)
-        $riwayat_id = mt_rand(100000, 999999); // Menghasilkan angka random antara 1000 dan 9999
+        $riwayat_id = mt_rand(1000000, 9999999); // Menghasilkan angka random antara 1000 dan 9999
         $NIK = $_POST["NIK"];
         $rumahsakit_id = $_POST['rumahsakit_id'];
         $tenagamedis_id = $_POST['tenagamedis_id'];

@@ -126,7 +126,7 @@ $patients = $pasien->fetchAll(PDO::FETCH_ASSOC);
       <div id="content" class="flex flex-col">
         <div class="h-[90vh] flex flex-col items-center justify-center ">
           <div class="flex flex-col text-teal-500">
-            <h1 class=" justify-start text-6xl mb-2">Welcome To! </h1>
+            <h1 class=" justify-start text-6xl mb-2">Welcome To </h1>
             <h1 class=" justify-start text-7xl"><?php echo htmlspecialchars($rumah_sakit['nama_rumahsakit']); ?></h1>
           </div>
         </div>
@@ -247,7 +247,7 @@ $patients = $pasien->fetchAll(PDO::FETCH_ASSOC);
     }
 
     const tambahRiwayat = `
-        <button class=" text-cyan-950 mr-4 p-2" onclick="switchContent()">
+        <button class=" text-cyan-950 flex flex-start p-2" onclick="switchContent()">
               <i class="fa-solid fa-chevron-left"></i>
             </button>
         <div class="flex flex-col items-center justify-center h-[90vh]">
